@@ -1,0 +1,88 @@
+stage23:
+  research_question: >-
+    Does the frozen Stage 22 damage tracker retain false-alarm control,
+    severe-damage detection, severity recovery, and localisation across
+    independently generated turbulent-wind and irregular-wave realizations?
+  upstream:
+    curated_deck_root: data/raw/openfast/v5.0.0/stage18_healthy_deck
+    primary_file: 5MW_OC3Mnpl_DLL_WTurb_WavesIrr/5MW_OC3Mnpl_DLL_WTurb_WavesIrr.fst
+    subdyn_file: 5MW_OC3Mnpl_DLL_WTurb_WavesIrr/NRELOffshrBsline5MW_OC3Monopile_SubDyn.dat
+    seastate_file: 5MW_OC3Mnpl_DLL_WTurb_WavesIrr/SeaState.dat
+    wind_directory: 5MW_Baseline/Wind
+    turbsim_input_source: work/r-test-source/r-test-5.0.0/glue-codes/openfast/5MW_Baseline/Wind/90m_12mps_twr.inp
+    turbsim_input_sha256: 898a7731d1d8f9674d9942f44642898563fd36e0b2d4ab9011eb4f0934daa012
+    stage22_state_library_path: results/metrics/stage22_state_library.csv
+    stage22_state_library_sha256: 5f9e121f8068a40ab118bc02dff2e00ada2227ffa315588f97894f938be91aa8
+    stage22_validation_path: results/metrics/stage22_validation.csv
+    stage22_validation_sha256: 717683f3ac695fe7158cd1abd6f18b6d61d08d6767c626c9ac389c2215ad7369
+    expected_dependency_count: 31
+  executables:
+    openfast_path: work/openfast-v5.0.0/OpenFAST_Double_Release.exe
+    openfast_sha256: f947198a7dff813a9f221a22a29fd451d40a51a5e976d1847900f1c890d7ffc7
+    turbsim_path: work/openfast-v5.0.0/TurbSim.exe
+    turbsim_sha256: 95c0b8867e2b2f322899975229e2b4358e88f2ddc26f1defd19504451c80dfe0
+    openfast_timeout_s: 180.0
+    turbsim_timeout_s: 300.0
+    run_root: work/s23
+  environment_realizations:
+    - {realization_id: e01, wind_seed: 27531, wave_seed: 91001}
+    - {realization_id: e02, wind_seed: 49387, wave_seed: 91003}
+    - {realization_id: e03, wind_seed: 71861, wave_seed: 91009}
+  parameterization:
+    control_case_id: control_no_loss
+    severe_loss_fraction: 0.30
+    clone_property_ids: {1: 5, 2: 6, 3: 7}
+    zones:
+      - {zone_id: lower_monopile, member_id: 1}
+      - {zone_id: middle_monopile, member_id: 2}
+      - {zone_id: upper_monopile, member_id: 3}
+  output_contract:
+    expected_sample_count: 1201
+    expected_time_step_s: 0.05
+    expected_channel_count: 64
+    required_channels:
+      - {source_channel: NcIMUTAxs, source_unit: m/s^2, target_name: nacelle_imu_fore_aft_acceleration_m_per_s2, target_unit: m/s^2, scale_to_target: 1.0}
+      - {source_channel: NcIMUTAys, source_unit: m/s^2, target_name: nacelle_imu_side_side_acceleration_m_per_s2, target_unit: m/s^2, scale_to_target: 1.0}
+  monitoring:
+    windows_per_state: 5
+    window_duration_s: 10.0
+    analysis_start_time_s: 10.0
+    minimum_frequency_hz: 0.10
+    maximum_frequency_hz: 2.00
+  frozen_tracker:
+    methods: [physics_template_control, hybrid_local_linear]
+    regimes: [commissioning_reference, paired_excitation_oracle]
+    zone_order: [lower_monopile, middle_monopile, upper_monopile]
+    meaningful_loss_fraction: 0.05
+    credible_level: 0.95
+    degrees_of_freedom: 4.0
+    likelihood_power: 0.25
+    initial_healthy_probability: 1.0
+    healthy_persistence_probability: 0.98
+    healthy_entry_severity_weights: [0.60, 0.30, 0.10]
+    damage_progression_probability: 0.010
+    zone_switch_probability: 0.005
+    alarm_probability_threshold: 0.80
+    alarm_persistence_windows: 2
+  expected_dimensions:
+    realization_count: 3
+    cases_per_realization: 4
+    openfast_case_count: 12
+    state_count: 10
+    frequency_count: 20
+    feature_count: 40
+    trajectory_count: 36
+    windows_per_trajectory: 10
+  hypotheses:
+    maximum_hybrid_operational_false_alarm_fraction: 0.05
+    maximum_hybrid_oracle_false_alarm_fraction: 0.05
+    minimum_hybrid_operational_trajectory_detection_fraction: 0.67
+    minimum_hybrid_oracle_trajectory_detection_fraction: 0.80
+    maximum_hybrid_operational_severity_mae: 0.12
+    maximum_hybrid_oracle_severity_mae: 0.08
+    minimum_hybrid_operational_final_zone_selection_fraction: 0.67
+    minimum_hybrid_oracle_final_zone_selection_fraction: 0.67
+    minimum_hybrid_operational_interval_coverage: 0.80
+    minimum_hybrid_oracle_interval_coverage: 0.80
+    minimum_operational_detection_improvement_over_physics: 0.20
+    minimum_oracle_detection_improvement_over_physics: 0.20

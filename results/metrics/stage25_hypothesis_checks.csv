@@ -1,0 +1,11 @@
+category,check,observed,operator,criterion,supported
+scientific_hypothesis,H25_1_operational_false_alarm_control,0.12,<=,0.05,False
+scientific_hypothesis,H25_2_oracle_false_alarm_control,0,<=,0.05,True
+scientific_hypothesis,H25_3_operational_trajectory_detection,0.4,>=,0.67,False
+scientific_hypothesis,H25_4_oracle_trajectory_detection,1,>=,0.8,True
+scientific_hypothesis,H25_5_operational_severity_mae,0.142760970555,<=,0.12,False
+scientific_hypothesis,H25_6_oracle_severity_mae,0.0654577483059,<=,0.08,True
+scientific_hypothesis,H25_7_operational_final_zone_selection,0.466666666667,>=,0.67,False
+scientific_hypothesis,H25_8_oracle_final_zone_selection,1,>=,0.67,True
+scientific_hypothesis,H25_9_operational_interval_coverage,0.613333333333,>=,0.8,False
+scientific_hypothesis,H25_10_oracle_interval_coverage,0.973333333333,>=,0.8,True

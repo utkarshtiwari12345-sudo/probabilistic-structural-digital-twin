@@ -1,0 +1,83 @@
+stage22:
+  research_question: >-
+    Can a damage-informed but physics-shrunk local spectral emulator recover
+    severe OpenFAST detection, severity, and localisation on cases excluded
+    from remedy fitting, without weakening the Stage 21 alarm rule?
+  upstream:
+    monitoring_windows_path: data/processed/stage21_monitoring_windows.csv
+    monitoring_windows_sha256: 327e0e37f64d5aa7a665f5030a91ea740b08694619653fecc70cc3e0d55d33a9
+    stage21_state_library_path: results/metrics/stage21_state_library.csv
+    stage21_state_library_sha256: 72308fa545e1b2a55628cb14bc1114c39fc222b7e35c46d41ab24613bf3e2277
+    stage21_summary_path: results/metrics/stage21_tracking_summary.csv
+    stage21_summary_sha256: 0c302d4ad45b446fef9374e78b9d80bf8e4ce2bb7e7d93cc0941c884dd4858c1
+    stage21_validation_path: results/metrics/stage21_validation.csv
+    stage21_validation_sha256: aa33bfdbe3ae9996512d5287f41b52b69f3341ddd27253e5f0eb13ce68908d16
+    transfer_spectra_path: data/processed/stage20_transfer_spectra.csv
+    transfer_spectra_sha256: e72ea178126558fa83dfad4f78c7054ca6c30ccd4fd224c71cd5af9e5a72d91b
+  split:
+    development_loss_levels: [0.10, 0.20]
+    severe_validation_loss_fraction: 0.30
+    limitation: >-
+      The 30% cases are excluded from Stage 22 template and variance fitting,
+      but they were already reported descriptively in Stages 19-21. This is a
+      within-project holdout, not independent external validation.
+  methods:
+    physics_template_control:
+      interpretation: frozen Stage 20 reduced-twin differential templates
+    hybrid_local_linear:
+      interpretation: >-
+        Per-zone local damage slopes estimated from 10% and 20% OpenFAST
+        windows and shrunk toward the physics-template slopes.
+      empirical_blend_weight: 0.75
+  observation_regimes:
+    - commissioning_reference
+    - paired_excitation_oracle
+  state_library:
+    zone_order: [lower_monopile, middle_monopile, upper_monopile]
+    loss_levels: [0.10, 0.20, 0.30]
+    meaningful_loss_fraction: 0.05
+    credible_level: 0.95
+  likelihood:
+    family: diagonal_student_t
+    degrees_of_freedom: 4.0
+    likelihood_power: 0.25
+    minimum_operational_log_variance: 0.25
+    minimum_oracle_log_variance: 0.05
+    severe_extrapolation_standard_deviation: 0.15
+  transition_model:
+    initial_healthy_probability: 1.0
+    healthy_persistence_probability: 0.98
+    healthy_entry_severity_weights: [0.60, 0.30, 0.10]
+    damage_progression_probability: 0.010
+    zone_switch_probability: 0.005
+  validation_replay:
+    healthy_windows: 5
+    severe_windows: 5
+  alarm:
+    probability_threshold: 0.80
+    persistence_windows: 2
+  expected_dimensions:
+    state_count: 10
+    development_case_count: 6
+    validation_case_count: 3
+    method_count: 2
+    regime_count: 2
+    trajectory_count: 12
+    windows_per_trajectory: 10
+  hypotheses:
+    maximum_remedied_operational_false_alarm_fraction: 0.05
+    maximum_remedied_oracle_false_alarm_fraction: 0.05
+    minimum_remedied_operational_severe_detection_fraction: 0.60
+    minimum_remedied_oracle_severe_detection_fraction: 0.80
+    minimum_remedied_operational_trajectory_detection_fraction: 0.67
+    minimum_remedied_oracle_trajectory_detection_fraction: 0.67
+    maximum_remedied_operational_severity_mae: 0.12
+    maximum_remedied_oracle_severity_mae: 0.08
+    minimum_remedied_operational_final_zone_selection_fraction: 0.67
+    minimum_remedied_oracle_final_zone_selection_fraction: 0.67
+    minimum_remedied_operational_severity_interval_coverage: 0.80
+    minimum_remedied_oracle_severity_interval_coverage: 0.80
+    minimum_operational_detection_improvement_over_physics: 0.20
+    minimum_oracle_detection_improvement_over_physics: 0.20
+    minimum_remedied_operational_true_state_log_likelihood_advantage: 0.0
+    minimum_remedied_oracle_true_state_log_likelihood_advantage: 0.0

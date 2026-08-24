@@ -1,0 +1,17 @@
+category,check,observed,operator,criterion,supported
+scientific_hypothesis,H22_1_remedied_operational_false_alarms_are_bounded,0.6,<=,0.05,False
+scientific_hypothesis,H22_2_remedied_oracle_false_alarms_are_bounded,0,<=,0.05,True
+scientific_hypothesis,H22_3_remedied_operational_severe_windows_are_detected,0,>=,0.6,False
+scientific_hypothesis,H22_4_remedied_oracle_severe_windows_are_detected,0,>=,0.8,False
+scientific_hypothesis,H22_5_remedied_operational_trajectories_are_detected,0,>=,0.67,False
+scientific_hypothesis,H22_6_remedied_oracle_trajectories_are_detected,0,>=,0.67,False
+scientific_hypothesis,H22_7_remedied_operational_severity_error_is_bounded,0.0992294955192,<=,0.12,True
+scientific_hypothesis,H22_8_remedied_oracle_severity_error_is_bounded,0.246602585659,<=,0.08,False
+scientific_hypothesis,H22_9_remedied_operational_final_zone_is_selected,0.666666666667,>=,0.67,False
+scientific_hypothesis,H22_10_remedied_oracle_final_zone_is_selected,0.666666666667,>=,0.67,False
+scientific_hypothesis,H22_11_remedied_operational_intervals_cover_severe_truth,0,>=,0.8,False
+scientific_hypothesis,H22_12_remedied_oracle_intervals_cover_severe_truth,0.266666666667,>=,0.8,False
+scientific_hypothesis,H22_13_operational_detection_improves_over_physics_control,0,>=,0.2,False
+scientific_hypothesis,H22_14_oracle_detection_improves_over_physics_control,0,>=,0.2,False
+scientific_hypothesis,H22_15_remedied_operational_true_state_evidence_is_positive,3.26542539504,>=,0,True
+scientific_hypothesis,H22_16_remedied_oracle_true_state_evidence_is_positive,0.266916588845,>=,0,True

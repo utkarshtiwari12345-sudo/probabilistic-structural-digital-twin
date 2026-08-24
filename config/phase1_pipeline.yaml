@@ -1,0 +1,269 @@
+pipeline:
+  name: probabilistic_structural_digital_twin
+  stages:
+    - id: 1a
+      name: structural_matrices
+      command: scripts/verify_structural_matrices.py
+      required_artifacts:
+        - {path: config/base_model.yaml, minimum_size_bytes: 100}
+    - id: 1b
+      name: modal_analysis
+      command: scripts/verify_modal_analysis.py
+      required_artifacts:
+        - {path: figures/stage1b_modal_properties.png, minimum_size_bytes: 1000}
+    - id: 1c
+      name: structural_dynamics
+      command: scripts/verify_structural_dynamics.py
+      required_artifacts:
+        - {path: figures/stage1c_dynamic_verification.png, minimum_size_bytes: 1000}
+    - id: 2
+      name: deterioration_truth
+      command: scripts/verify_deterioration_models.py
+      required_artifacts:
+        - {path: data/processed/stage2_deterioration_ground_truth.csv, minimum_size_bytes: 1000}
+        - {path: figures/stage2_deterioration_scenarios.png, minimum_size_bytes: 1000}
+    - id: 3
+      name: sparse_monitoring
+      command: scripts/verify_monitoring_system.py
+      required_artifacts:
+        - {path: data/processed/stage3_sparse_monitoring.csv, minimum_size_bytes: 1000}
+        - {path: figures/stage3_sparse_monitoring.png, minimum_size_bytes: 1000}
+    - id: 4
+      name: identifiability
+      command: scripts/run_identifiability_study.py
+      required_artifacts:
+        - {path: results/metrics/stage4_identifiability.csv, minimum_size_bytes: 100}
+        - {path: figures/stage4_identifiability.png, minimum_size_bytes: 1000}
+    - id: 5
+      name: batch_recovery
+      command: scripts/run_batch_recovery_study.py
+      required_artifacts:
+        - {path: results/metrics/stage5_recovery_summary.csv, minimum_size_bytes: 100}
+        - {path: figures/stage5_batch_recovery.png, minimum_size_bytes: 1000}
+    - id: 6
+      name: sequential_tracking
+      command: scripts/run_sequential_tracking_study.py
+      required_artifacts:
+        - {path: results/metrics/stage6_method_summary.csv, minimum_size_bytes: 100}
+        - {path: results/metrics/stage6_alarm_calibration.csv, minimum_size_bytes: 100}
+        - {path: figures/stage6_sequential_tracking.png, minimum_size_bytes: 1000}
+    - id: 7
+      name: nonlinear_filters
+      command: scripts/run_nonlinear_filter_study.py
+      required_artifacts:
+        - {path: results/metrics/stage7_filter_summary.csv, minimum_size_bytes: 100}
+        - {path: results/metrics/stage7_alarm_calibration.csv, minimum_size_bytes: 100}
+        - {path: figures/stage7_filter_comparison.png, minimum_size_bytes: 1000}
+    - id: 8
+      name: model_discrepancy
+      command: scripts/run_model_discrepancy_study.py
+      required_artifacts:
+        - {path: results/metrics/stage8_hypothesis_checks.csv, minimum_size_bytes: 100}
+        - {path: figures/stage8_model_discrepancy.png, minimum_size_bytes: 1000}
+    - id: 9
+      name: joint_discrepancy
+      command: scripts/run_joint_discrepancy_inference_study.py
+      required_artifacts:
+        - {path: results/metrics/stage9_hypothesis_checks.csv, minimum_size_bytes: 100}
+        - {path: figures/stage9_joint_discrepancy_inference.png, minimum_size_bytes: 1000}
+    - id: 10
+      name: sensor_information
+      command: scripts/run_sensor_information_study.py
+      required_artifacts:
+        - {path: results/metrics/stage10_hypothesis_checks.csv, minimum_size_bytes: 100}
+        - {path: figures/stage10_sensor_information.png, minimum_size_bytes: 1000}
+    - id: 11
+      name: robustness_factorial
+      command: scripts/run_robustness_factorial_study.py
+      required_artifacts:
+        - {path: results/metrics/stage11_hypothesis_checks.csv, minimum_size_bytes: 100}
+        - {path: figures/stage11_robustness_factorial.png, minimum_size_bytes: 1000}
+    - id: 12
+      name: monte_carlo_confirmation
+      command: scripts/run_monte_carlo_confirmation.py
+      required_artifacts:
+        - {path: results/metrics/stage12_hypothesis_checks.csv, minimum_size_bytes: 100}
+        - {path: figures/stage12_monte_carlo_confirmation.png, minimum_size_bytes: 1000}
+    - id: 13
+      name: joint_state_parameter
+      command: scripts/run_joint_state_parameter_study.py
+      required_artifacts:
+        - {path: results/metrics/stage13_hypothesis_checks.csv, minimum_size_bytes: 100}
+        - {path: figures/stage13_joint_state_parameter.png, minimum_size_bytes: 1000}
+    - id: 14
+      name: information_remedy
+      command: scripts/run_information_remedy_study.py
+      required_artifacts:
+        - {path: results/metrics/stage14_recovery_gates.csv, minimum_size_bytes: 100}
+        - {path: results/metrics/stage14_hypothesis_checks.csv, minimum_size_bytes: 100}
+        - {path: figures/stage14_information_remedy.png, minimum_size_bytes: 1000}
+    - id: 15
+      name: uncertainty_calibration
+      command: scripts/run_uncertainty_calibration_study.py
+      required_artifacts:
+        - {path: results/metrics/stage15_uncertainty_recovery_gates.csv, minimum_size_bytes: 100}
+        - {path: results/metrics/stage15_hypothesis_checks.csv, minimum_size_bytes: 100}
+        - {path: figures/stage15_uncertainty_calibration.png, minimum_size_bytes: 1000}
+    - id: 16
+      name: phase1_closure
+      command: scripts/run_phase1_closure_study.py
+      required_artifacts:
+        - {path: results/metrics/stage16_confirmation_checks.csv, minimum_size_bytes: 100}
+        - {path: results/metrics/stage16_phase1_manifest.csv, minimum_size_bytes: 100}
+        - {path: figures/stage16_phase1_closure.png, minimum_size_bytes: 1000}
+    - id: 17
+      name: openfast_baseline_bridge
+      command: scripts/run_openfast_baseline_bridge.py
+      required_artifacts:
+        - {path: data/raw/openfast/v5.0.0/5MW_OC3Mnpl_DLL_WTurb_WavesIrr/5MW_OC3Mnpl_DLL_WTurb_WavesIrr.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage17_openfast_observations.csv, minimum_size_bytes: 10000}
+        - {path: results/metrics/stage17_openfast_validation.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage17_openfast_channel_mapping.csv, minimum_size_bytes: 500}
+        - {path: figures/stage17_openfast_baseline_bridge.png, minimum_size_bytes: 1000}
+    - id: 18
+      name: openfast_healthy_execution
+      command: scripts/run_openfast_healthy_baseline.py
+      required_artifacts:
+        - {path: data/raw/openfast/v5.0.0/stage18_healthy_deck/5MW_OC3Mnpl_DLL_WTurb_WavesIrr/5MW_OC3Mnpl_DLL_WTurb_WavesIrr.fst, minimum_size_bytes: 1000}
+        - {path: data/raw/openfast/v5.0.0/stage18_healthy_deck/5MW_OC3Mnpl_DLL_WTurb_WavesIrr/NRELOffshrBsline5MW_OC3Monopile_ElastoDyn.dat, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage18_openfast_deck_manifest.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage18_openfast_sensor_contract.csv, minimum_size_bytes: 200}
+        - {path: results/metrics/stage18_openfast_execution.csv, minimum_size_bytes: 100}
+        - {path: results/metrics/stage18_openfast_validation.csv, minimum_size_bytes: 1000}
+        - {path: data/processed/stage18_openfast_healthy.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage18_openfast_healthy_observations.csv, minimum_size_bytes: 10000}
+        - {path: figures/stage18_openfast_healthy_readiness.png, minimum_size_bytes: 1000}
+    - id: 19
+      name: openfast_controlled_deterioration
+      command: scripts/run_openfast_deterioration_study.py
+      required_artifacts:
+        - {path: data/processed/stage19_openfast_cases/control_no_loss.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage19_openfast_cases/lower_monopile_loss_10pct.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage19_openfast_cases/lower_monopile_loss_20pct.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage19_openfast_cases/lower_monopile_loss_30pct.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage19_openfast_cases/middle_monopile_loss_10pct.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage19_openfast_cases/middle_monopile_loss_20pct.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage19_openfast_cases/middle_monopile_loss_30pct.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage19_openfast_cases/upper_monopile_loss_10pct.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage19_openfast_cases/upper_monopile_loss_20pct.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage19_openfast_cases/upper_monopile_loss_30pct.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage19_openfast_deterioration.csv, minimum_size_bytes: 100000}
+        - {path: results/metrics/stage19_openfast_case_manifest.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage19_openfast_stiffness_patches.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage19_openfast_response_metrics.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage19_openfast_window_metrics.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage19_openfast_hypothesis_checks.csv, minimum_size_bytes: 500}
+        - {path: results/metrics/stage19_openfast_validation.csv, minimum_size_bytes: 500}
+        - {path: figures/stage19_openfast_deterioration.png, minimum_size_bytes: 1000}
+    - id: 20
+      name: openfast_reduced_twin_transfer
+      command: scripts/run_openfast_twin_transfer_study.py
+      required_artifacts:
+        - {path: data/processed/stage20_transfer_spectra.csv, minimum_size_bytes: 100000}
+        - {path: results/metrics/stage20_twin_calibration.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage20_transfer_case_metrics.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage20_transfer_channel_metrics.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage20_discrepancy_model.csv, minimum_size_bytes: 500}
+        - {path: results/metrics/stage20_zone_signature_matching.csv, minimum_size_bytes: 500}
+        - {path: results/metrics/stage20_hypothesis_checks.csv, minimum_size_bytes: 500}
+        - {path: results/metrics/stage20_transfer_validation.csv, minimum_size_bytes: 500}
+        - {path: figures/stage20_openfast_twin_transfer.png, minimum_size_bytes: 1000}
+    - id: 21
+      name: openfast_sequential_tracking
+      command: scripts/run_openfast_sequential_tracking_study.py
+      required_artifacts:
+        - {path: data/processed/stage21_monitoring_windows.csv, minimum_size_bytes: 100000}
+        - {path: results/metrics/stage21_state_library.csv, minimum_size_bytes: 100000}
+        - {path: results/metrics/stage21_posterior_history.csv, minimum_size_bytes: 10000}
+        - {path: results/metrics/stage21_state_probabilities.csv, minimum_size_bytes: 100000}
+        - {path: results/metrics/stage21_tracking_summary.csv, minimum_size_bytes: 500}
+        - {path: results/metrics/stage21_detection_events.csv, minimum_size_bytes: 400}
+        - {path: results/metrics/stage21_hypothesis_checks.csv, minimum_size_bytes: 500}
+        - {path: results/metrics/stage21_validation.csv, minimum_size_bytes: 500}
+        - {path: figures/stage21_openfast_sequential_tracking.png, minimum_size_bytes: 1000}
+    - id: 22
+      name: openfast_information_remedy
+      command: scripts/run_openfast_information_remedy_study.py
+      required_artifacts:
+        - {path: results/metrics/stage22_template_calibration.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage22_state_library.csv, minimum_size_bytes: 100000}
+        - {path: results/metrics/stage22_posterior_history.csv, minimum_size_bytes: 10000}
+        - {path: results/metrics/stage22_state_probabilities.csv, minimum_size_bytes: 100000}
+        - {path: results/metrics/stage22_remedy_summary.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage22_detection_events.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage22_hypothesis_checks.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage22_validation.csv, minimum_size_bytes: 1000}
+        - {path: figures/stage22_openfast_information_remedy.png, minimum_size_bytes: 1000}
+    - id: 23
+      name: openfast_environment_ensemble
+      command: scripts/run_openfast_environment_ensemble_study.py
+      required_artifacts:
+        - {path: data/processed/stage23_openfast_cases/e01__control_no_loss.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage23_openfast_cases/e02__control_no_loss.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage23_openfast_cases/e03__control_no_loss.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage23_openfast_environment_ensemble.csv, minimum_size_bytes: 100000}
+        - {path: data/processed/stage23_monitoring_windows.csv, minimum_size_bytes: 100000}
+        - {path: results/metrics/stage23_environment_manifest.csv, minimum_size_bytes: 500}
+        - {path: results/metrics/stage23_openfast_case_manifest.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage23_openfast_stiffness_patches.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage23_posterior_history.csv, minimum_size_bytes: 10000}
+        - {path: results/metrics/stage23_state_probabilities.csv, minimum_size_bytes: 100000}
+        - {path: results/metrics/stage23_ensemble_summary.csv, minimum_size_bytes: 500}
+        - {path: results/metrics/stage23_detection_events.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage23_hypothesis_checks.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage23_validation.csv, minimum_size_bytes: 1000}
+        - {path: figures/stage23_openfast_environment_ensemble.png, minimum_size_bytes: 1000}
+    - id: 24
+      name: openfast_sensor_feature_expansion
+      command: scripts/run_openfast_sensor_feature_expansion_study.py
+      required_artifacts:
+        - {path: data/processed/stage24_sensor_spectra.csv, minimum_size_bytes: 100000}
+        - {path: data/processed/stage24_candidate_features.csv, minimum_size_bytes: 1000000}
+        - {path: results/metrics/stage24_candidate_cv_folds.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage24_candidate_cv_summary.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage24_feature_selection.csv, minimum_size_bytes: 500}
+        - {path: results/metrics/stage24_state_library.csv, minimum_size_bytes: 100000}
+        - {path: results/metrics/stage24_posterior_history.csv, minimum_size_bytes: 10000}
+        - {path: results/metrics/stage24_state_probabilities.csv, minimum_size_bytes: 50000}
+        - {path: results/metrics/stage24_detection_events.csv, minimum_size_bytes: 500}
+        - {path: results/metrics/stage24_validation_summary.csv, minimum_size_bytes: 500}
+        - {path: results/metrics/stage24_hypothesis_checks.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage24_validation.csv, minimum_size_bytes: 1000}
+        - {path: figures/stage24_openfast_sensor_information.png, minimum_size_bytes: 1000}
+    - id: 25
+      name: openfast_external_confirmation
+      command: scripts/run_openfast_external_confirmation_study.py
+      required_artifacts:
+        - {path: data/processed/stage25_openfast_cases/x01__control_no_loss.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage25_openfast_cases/x02__control_no_loss.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage25_openfast_cases/x03__control_no_loss.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage25_openfast_cases/x04__control_no_loss.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage25_openfast_cases/x05__control_no_loss.outb, minimum_size_bytes: 100000}
+        - {path: data/processed/stage25_distributed_moment_spectra.csv, minimum_size_bytes: 1000000}
+        - {path: results/metrics/stage25_environment_manifest.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage25_openfast_case_manifest.csv, minimum_size_bytes: 5000}
+        - {path: results/metrics/stage25_openfast_stiffness_patches.csv, minimum_size_bytes: 5000}
+        - {path: results/metrics/stage25_posterior_history.csv, minimum_size_bytes: 50000}
+        - {path: results/metrics/stage25_state_probabilities.csv, minimum_size_bytes: 100000}
+        - {path: results/metrics/stage25_external_confirmation_summary.csv, minimum_size_bytes: 500}
+        - {path: results/metrics/stage25_detection_events.csv, minimum_size_bytes: 1000}
+        - {path: results/metrics/stage25_hypothesis_checks.csv, minimum_size_bytes: 500}
+        - {path: results/metrics/stage25_validation.csv, minimum_size_bytes: 1000}
+        - {path: figures/stage25_openfast_external_confirmation.png, minimum_size_bytes: 1000}
+    - id: 26
+      name: github_research_release_readiness
+      command: scripts/verify_release_readiness.py
+      required_artifacts:
+        - {path: config/release.yaml, minimum_size_bytes: 1000}
+        - {path: CITATION.cff, minimum_size_bytes: 300}
+        - {path: CONTRIBUTING.md, minimum_size_bytes: 1000}
+        - {path: THIRD_PARTY_NOTICES.md, minimum_size_bytes: 1000}
+        - {path: requirements-lock.txt, minimum_size_bytes: 300}
+        - {path: .github/workflows/ci.yml, minimum_size_bytes: 300}
+        - {path: docs/release_guide.md, minimum_size_bytes: 2000}
+        - {path: docs/research_communication.md, minimum_size_bytes: 5000}
+        - {path: results/release/stage26_release_readiness.csv, minimum_size_bytes: 1000}
+        - {path: results/release/stage26_release_summary.csv, minimum_size_bytes: 500}
+        - {path: results/release/stage26_release_manifest.csv, minimum_size_bytes: 20000}
+        - {path: results/release/stage26_sha256sums.txt, minimum_size_bytes: 20000}
+        - {path: figures/stage26_release_readiness.png, minimum_size_bytes: 1000}

@@ -1,0 +1,7 @@
+parameter,initial_value,calibrated_value,lower_bound,upper_bound,relative_lower_margin,relative_upper_margin,optimizer_success,optimizer_status,function_evaluations,initial_log_spectral_rmse,calibrated_log_spectral_rmse,minimum_bound_margin_fraction,optimizer_message
+mass_scale,1,1.05611223276,0.5,2,0.370741488505,0.629258511495,True,2,35,2.30192416973,1.45165518677,1.0430264957e-12,`ftol` termination condition is satisfied.
+damping_scale,1,4.81635133301,0.2,5,0.961739861045,0.0382601389553,True,2,35,2.30192416973,1.45165518677,1.0430264957e-12,`ftol` termination condition is satisfied.
+fore_aft_force_standard_deviation_scale,1,1.63596581495,0.01,20,0.0813389602275,0.918661039772,True,2,35,2.30192416973,1.45165518677,1.0430264957e-12,`ftol` termination condition is satisfied.
+fore_aft_force_correlation_time_s,0.75,4.99999999999,0.05,5,0.999999999999,1.0430264957e-12,True,2,35,2.30192416973,1.45165518677,1.0430264957e-12,`ftol` termination condition is satisfied.
+side_side_force_standard_deviation_scale,1,0.900937721348,0.01,20,0.0445691706528,0.955430829347,True,2,35,2.30192416973,1.45165518677,1.0430264957e-12,`ftol` termination condition is satisfied.
+side_side_force_correlation_time_s,0.75,4.99999999992,0.05,5,0.999999999985,1.53552591517e-11,True,2,35,2.30192416973,1.45165518677,1.0430264957e-12,`ftol` termination condition is satisfied.

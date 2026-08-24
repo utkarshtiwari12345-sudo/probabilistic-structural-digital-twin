@@ -1,0 +1,14 @@
+category,check,observed,operator,criterion,supported
+provenance,stage19_validation,True,==,True,True
+provenance,stage19_observations_sha256,True,==,True,True
+provenance,base_model_sha256,True,==,True,True
+data_split,healthy_calibration_case_count,1,==,1,True
+data_split,damaged_holdout_case_count,9,==,9,True
+data_split,holdout_used_for_calibration,False,==,False,True
+mapping,ordered_zone_mapping_complete,True,==,True,True
+spectral_contract,frequency_bin_count,40,==,40,True
+calibration,optimizer_success,True,==,True,True
+calibration,calibrated_parameter_count,6,==,6,True
+evaluation,evaluated_case_count,10,==,10,True
+evaluation,positive_finite_predictions,True,==,True,True
+discrepancy,finite_positive_inflation_factor,True,==,True,True

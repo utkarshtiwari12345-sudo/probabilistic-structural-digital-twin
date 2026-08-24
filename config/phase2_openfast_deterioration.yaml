@@ -1,0 +1,43 @@
+stage19:
+  research_question: >-
+    Under identical deterministic wind, wave, controller, mass, damping, and
+    integration settings, how do direct nacelle accelerations change when
+    stiffness is reduced locally in each of the three OC3 monopile members?
+  upstream:
+    stage: 18
+    curated_deck_root: data/raw/openfast/v5.0.0/stage18_healthy_deck
+    primary_file: 5MW_OC3Mnpl_DLL_WTurb_WavesIrr/5MW_OC3Mnpl_DLL_WTurb_WavesIrr.fst
+    subdyn_file: 5MW_OC3Mnpl_DLL_WTurb_WavesIrr/NRELOffshrBsline5MW_OC3Monopile_SubDyn.dat
+    healthy_output: data/processed/stage18_openfast_healthy.outb
+    healthy_execution_record: results/metrics/stage18_openfast_execution.csv
+    expected_dependency_count: 31
+  solver:
+    executable_path: work/openfast-v5.0.0/OpenFAST_Double_Release.exe
+    executable_sha256: f947198a7dff813a9f221a22a29fd451d40a51a5e976d1847900f1c890d7ffc7
+    timeout_s: 180.0
+    run_root: work/stage19_openfast_run
+  parameterization:
+    interpretation: isotropic_material_stiffness_retention
+    scaled_fields: [YoungE, ShearG]
+    invariant_fields: [MatDens, XsecD, XsecT]
+    clone_property_ids: {1: 5, 2: 6, 3: 7}
+    control_case_id: control_no_loss
+    loss_fractions: [0.10, 0.20, 0.30]
+    zones:
+      - {zone_id: lower_monopile, member_id: 1, z_start_m: -20.0001, z_end_m: -10.0}
+      - {zone_id: middle_monopile, member_id: 2, z_start_m: -10.0, z_end_m: 0.0}
+      - {zone_id: upper_monopile, member_id: 3, z_start_m: 0.0, z_end_m: 10.0}
+  output_contract:
+    expected_sample_count: 1201
+    expected_time_step_s: 0.05
+    expected_channel_count: 64
+    required_channels:
+      - {source_channel: NcIMUTAxs, source_unit: m/s^2, target_name: nacelle_imu_fore_aft_acceleration_m_per_s2, target_unit: m/s^2, scale_to_target: 1.0}
+      - {source_channel: NcIMUTAys, source_unit: m/s^2, target_name: nacelle_imu_side_side_acceleration_m_per_s2, target_unit: m/s^2, scale_to_target: 1.0}
+  analysis:
+    start_time_s: 10.0
+    window_duration_s: 10.0
+    welch_segment_samples: 400
+    control_max_abs_error_m_per_s2: 1.0e-10
+    transmitted_change_min_nrmse: 1.0e-6
+    severe_signature_min_relative_distance: 1.0e-3

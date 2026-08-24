@@ -1,0 +1,5 @@
+method,candidate_id,regime,validation_realization,trajectory_count,false_alarm_fraction,pre_onset_false_alarm_trajectory_fraction,raw_severe_alarm_fraction,valid_severe_detection_fraction,trajectory_detection_fraction,severity_mae,severity_interval_coverage,final_zone_selection_fraction,mean_final_true_zone_probability,mean_final_damage_probability,mean_true_state_log_likelihood_advantage_over_healthy
+stage24_selected_sensor_model,distributed_moment_psd,commissioning_reference,e03,3,0.2,1,1,0,0,0.108270395656,0.933333333333,0.333333333333,0.340904283032,0.999990144957,1.02127076038
+stage23_frozen_hybrid,baseline_nacelle_psd,commissioning_reference,e03,3,0,0,0,0,0,0.299164781573,0,0.333333333333,0.335344091964,0.00701626322771,-5.70452275493
+stage24_selected_sensor_model,distributed_moment_psd,paired_excitation_oracle,e03,3,0,0,0.666666666667,0.666666666667,1,0.0611640044209,1,1,0.993274380618,0.999994010052,7.86043372409
+stage23_frozen_hybrid,baseline_nacelle_psd,paired_excitation_oracle,e03,3,0,0,0,0,0,0.279035544483,0,0.666666666667,0.376962747834,0.23242947842,-0.274198836587

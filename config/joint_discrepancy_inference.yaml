@@ -1,0 +1,99 @@
+data_model:
+  inference_process_model: responsive
+
+calibration:
+  healthy_replicates: 10
+  random_seed: 20261110
+
+evaluation:
+  replicates: 3
+  # Seed 20261120 was used for design development. The frozen study uses this
+  # untouched holdout seed.
+  random_seed: 20261130
+
+methods:
+  nominal:
+    model: stiffness_only
+
+  joint_commissioning:
+    model: joint
+    stiffness_initial_prior_mean: [0.995, 0.995, 0.995]
+    stiffness_initial_prior_standard_deviation: [0.015, 0.015, 0.015]
+    nuisance_initial_prior_mean: [1.0, 1.0, 1.0, 1.0]
+    nuisance_initial_prior_standard_deviation: [0.08, 0.30, 0.25, 0.30]
+    nuisance_lower_bounds: [0.85, 0.50, 0.60, 0.50]
+    nuisance_upper_bounds: [1.15, 1.60, 1.50, 1.60]
+    nuisance_process_standard_deviation: [0.0, 0.0, 0.0, 0.0]
+
+  joint_weak:
+    model: joint
+    stiffness_initial_prior_mean: [0.98, 0.98, 0.98]
+    stiffness_initial_prior_standard_deviation: [0.08, 0.08, 0.08]
+    nuisance_initial_prior_mean: [1.0, 1.0, 1.0, 1.0]
+    nuisance_initial_prior_standard_deviation: [0.15, 0.50, 0.45, 0.50]
+    nuisance_lower_bounds: [0.85, 0.50, 0.60, 0.50]
+    nuisance_upper_bounds: [1.15, 1.60, 1.50, 1.60]
+    nuisance_process_standard_deviation: [0.0, 0.0, 0.0, 0.0]
+
+cases:
+  matched_healthy:
+    truth_scenario: healthy
+
+  mass_plus_5:
+    truth_scenario: healthy
+    mass_scale: 1.05
+
+  damping_plus_30:
+    truth_scenario: healthy
+    damping_scale: 1.30
+
+  excitation_plus_15:
+    truth_scenario: healthy
+    excitation_standard_deviation_scale: 1.15
+
+  correlation_time_plus_30:
+    truth_scenario: healthy
+    excitation_correlation_time_scale: 1.30
+
+  combined_healthy:
+    truth_scenario: healthy
+    mass_scale: 1.03
+    damping_scale: 1.15
+    excitation_standard_deviation_scale: 1.08
+    excitation_correlation_time_scale: 1.15
+
+  gradual_lower_mass_plus_5:
+    truth_scenario: gradual_lower
+    mass_scale: 1.05
+
+  abrupt_middle_damping_plus_30:
+    truth_scenario: abrupt_middle
+    damping_scale: 1.30
+
+  multi_zone_combined:
+    truth_scenario: multi_zone
+    mass_scale: 1.03
+    damping_scale: 1.15
+    excitation_standard_deviation_scale: 1.08
+    excitation_correlation_time_scale: 1.15
+
+identifiability:
+  reference_stiffness_multipliers: [0.95, 0.95, 0.95]
+  reference_nuisance_scales: [1.0, 1.0, 1.0, 1.0]
+  derivative_relative_step: 1.0e-4
+  effective_rank_relative_threshold: 0.01
+
+verification:
+  operational_methods: [nominal, joint_commissioning]
+  maximum_matched_false_alarm_fraction: 0.05
+  maximum_optimizer_failure_fraction: 0.0
+
+hypotheses:
+  minimum_mass_false_alarm_reduction: 0.50
+  maximum_joint_combined_healthy_false_alarm_fraction: 0.20
+  maximum_joint_matched_healthy_rmse: 0.03
+  maximum_joint_to_nominal_damaged_rmse_ratio: 0.85
+  minimum_joint_damage_detection_fraction: 0.80
+  minimum_joint_damaged_interior_coverage: 0.75
+  minimum_data_only_rank_deficiency: 1
+  minimum_weak_to_commissioning_interval_width_ratio: 1.20

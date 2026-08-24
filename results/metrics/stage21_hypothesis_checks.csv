@@ -1,0 +1,12 @@
+category,check,observed,operator,criterion,supported
+scientific_hypothesis,H21_1_operational_commissioning_false_alarms_are_bounded,0,<=,0.05,True
+scientific_hypothesis,H21_2_oracle_commissioning_false_alarms_are_bounded,0,<=,0.05,True
+scientific_hypothesis,H21_3_operational_damaged_windows_are_detected,0,>=,0.5,False
+scientific_hypothesis,H21_4_oracle_damaged_windows_are_detected,0,>=,0.8,False
+scientific_hypothesis,H21_5_operational_severity_error_is_bounded,0.173040533499,<=,0.15,False
+scientific_hypothesis,H21_6_oracle_severity_error_is_bounded,0.194024233571,<=,0.1,False
+scientific_hypothesis,H21_7_operational_severe_zone_is_selected,0.333333333333,>=,0.67,False
+scientific_hypothesis,H21_8_oracle_severe_zone_is_selected,0.333333333333,>=,0.67,False
+scientific_hypothesis,H21_9_operational_severity_intervals_cover_truth,0.688888888889,>=,0.8,False
+scientific_hypothesis,H21_10_oracle_severity_intervals_cover_truth,0.0666666666667,>=,0.8,False
+scientific_hypothesis,H21_11_matched_excitation_materially_improves_detection,0,>=,0.15,False

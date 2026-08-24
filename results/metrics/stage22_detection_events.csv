@@ -1,0 +1,13 @@
+regime,method,trajectory_zone,severe_onset_window,pre_onset_false_alarm,detected,first_persistent_alarm_window,detection_delay_windows,probability_threshold,persistence_windows
+commissioning_reference,physics_template_control,lower_monopile,6,False,False,,,0.8,2
+commissioning_reference,physics_template_control,middle_monopile,6,False,False,,,0.8,2
+commissioning_reference,physics_template_control,upper_monopile,6,False,False,,,0.8,2
+commissioning_reference,hybrid_local_linear,lower_monopile,6,True,False,,,0.8,2
+commissioning_reference,hybrid_local_linear,middle_monopile,6,True,False,,,0.8,2
+commissioning_reference,hybrid_local_linear,upper_monopile,6,True,False,,,0.8,2
+paired_excitation_oracle,physics_template_control,lower_monopile,6,False,False,,,0.8,2
+paired_excitation_oracle,physics_template_control,middle_monopile,6,False,False,,,0.8,2
+paired_excitation_oracle,physics_template_control,upper_monopile,6,False,False,,,0.8,2
+paired_excitation_oracle,hybrid_local_linear,lower_monopile,6,False,False,,,0.8,2
+paired_excitation_oracle,hybrid_local_linear,middle_monopile,6,False,False,,,0.8,2
+paired_excitation_oracle,hybrid_local_linear,upper_monopile,6,False,False,,,0.8,2

@@ -1,0 +1,11 @@
+method,candidate_probability_threshold,healthy_false_alarm_fraction,passes_calibration,selected,calibration_succeeded
+joint_ukf,0.8,0.666666666667,False,False,False
+joint_ukf,0.9,0.666666666667,False,False,False
+joint_ukf,0.95,0.666666666667,False,False,False
+joint_ukf,0.975,0.666666666667,False,False,False
+joint_ukf,0.99,0.666666666667,False,True,False
+joint_enkf,0.8,0.444444444444,False,False,False
+joint_enkf,0.9,0.444444444444,False,False,False
+joint_enkf,0.95,0.444444444444,False,False,False
+joint_enkf,0.975,0.444444444444,False,False,False
+joint_enkf,0.99,0.444444444444,False,True,False

@@ -1,0 +1,8 @@
+category,check,observed,comparator,threshold,supported
+verification,matched healthy false alarms controlled,0,<=,0.05,True
+verification,matched residual calibration retained,0,<=,0.1,True
+verification,optimizer convergence,0,<=,0,True
+hypothesis,healthy discrepancy creates false damage,0.777777777778,>=,0.5,True
+hypothesis,mass discrepancy creates apparent loss,0.0587667531607,>=,0.03,True
+hypothesis,residual diagnostic detects at least one discrepancy,0.975308641975,>=,0.5,True
+hypothesis,damage detection survives every discrepancy,0.333333333333,>=,0.8,False

@@ -1,0 +1,42 @@
+data_model:
+  joint_method: joint_commissioning
+  reference_layout: full_reference
+
+layouts:
+  - top_only
+  - two_spaced
+  - three_spaced
+  - three_clustered
+  - full_reference
+
+calibration:
+  healthy_replicates: 6
+  random_seed: 20261210
+
+evaluation:
+  replicates: 3
+  # Seed 20261220 was used for design development. The frozen study uses this
+  # untouched holdout seed.
+  random_seed: 20261230
+
+case_names:
+  - matched_healthy
+  - mass_plus_5
+  - gradual_lower_mass_plus_5
+  - abrupt_middle_damping_plus_30
+  - multi_zone_combined
+
+verification:
+  operational_layout: three_spaced
+  maximum_matched_false_alarm_fraction: 0.05
+  maximum_optimizer_failure_fraction: 0.0
+
+hypotheses:
+  maximum_three_spaced_to_top_only_rmse_ratio: 0.80
+  maximum_three_spaced_to_top_only_interval_width_ratio: 0.85
+  minimum_three_spaced_localization_improvement: 0.20
+  maximum_three_spaced_to_clustered_rmse_ratio: 0.90
+  minimum_three_spaced_detection_fraction: 0.80
+  maximum_three_spaced_mass_false_alarm_fraction: 0.20
+  minimum_clustered_to_spaced_condition_ratio: 1.20
+  maximum_full_reference_rmse_improvement_fraction: 0.25

@@ -1,0 +1,102 @@
+stage25:
+  research_question: >-
+    Does the frozen Stage 24 distributed-moment Bayesian tracker retain
+    false-alarm control, severe-damage detection, severity recovery, and
+    localisation on OpenFAST environments generated only after model freeze?
+  freeze:
+    selected_candidate_id: distributed_moment_psd
+    stage24_config_path: config/phase2_openfast_sensor_feature_expansion.yaml
+    stage24_config_sha256: 6aaa9ddf66731105397e58660227f8871fc886ae5526b2b717a748d3c749b492
+    stage24_feature_selection_path: results/metrics/stage24_feature_selection.csv
+    stage24_feature_selection_sha256: 91b1618907118dbb4681b269ba1ec42e1a484ad57b8b667a55ba753de43cdb0f
+    stage24_state_library_path: results/metrics/stage24_state_library.csv
+    stage24_state_library_sha256: 7c82de664ff1a7eee2e46c1b310925a978f67be4006b6b34c85d75510a650a59
+    stage24_validation_path: results/metrics/stage24_validation.csv
+    stage24_validation_sha256: b87d95b2fee6d5085b71dda37330ea6297d9c3a03b731f8ee72505f9cbdb5b44
+    stage24_validation_summary_path: results/metrics/stage24_validation_summary.csv
+    stage24_validation_summary_sha256: 37b8524467f2bcb20e59b16ac70089a92bf98cbf17f3daae3cf0b5d99904b7de
+    stage23_environment_manifest_path: results/metrics/stage23_environment_manifest.csv
+    stage23_environment_manifest_sha256: 3d46c6fde921f6b69a46abe384c9dbb372127c0d3a5b22fce2acc91b1921acef
+  upstream:
+    curated_deck_root: data/raw/openfast/v5.0.0/stage18_healthy_deck
+    primary_file: 5MW_OC3Mnpl_DLL_WTurb_WavesIrr/5MW_OC3Mnpl_DLL_WTurb_WavesIrr.fst
+    subdyn_file: 5MW_OC3Mnpl_DLL_WTurb_WavesIrr/NRELOffshrBsline5MW_OC3Monopile_SubDyn.dat
+    seastate_file: 5MW_OC3Mnpl_DLL_WTurb_WavesIrr/SeaState.dat
+    wind_directory: 5MW_Baseline/Wind
+    turbsim_input_source: work/r-test-source/r-test-5.0.0/glue-codes/openfast/5MW_Baseline/Wind/90m_12mps_twr.inp
+    turbsim_input_sha256: 898a7731d1d8f9674d9942f44642898563fd36e0b2d4ab9011eb4f0934daa012
+    expected_dependency_count: 31
+  executables:
+    openfast_path: work/openfast-v5.0.0/OpenFAST_Double_Release.exe
+    openfast_sha256: f947198a7dff813a9f221a22a29fd451d40a51a5e976d1847900f1c890d7ffc7
+    turbsim_path: work/openfast-v5.0.0/TurbSim.exe
+    turbsim_sha256: 95c0b8867e2b2f322899975229e2b4358e88f2ddc26f1defd19504451c80dfe0
+    openfast_timeout_s: 180.0
+    turbsim_timeout_s: 300.0
+    run_root: work/s25
+  external_realizations:
+    - {realization_id: x01, wind_seed: 83521, wave_seed: 92011}
+    - {realization_id: x02, wind_seed: 96233, wave_seed: 92021}
+    - {realization_id: x03, wind_seed: 113347, wave_seed: 92033}
+    - {realization_id: x04, wind_seed: 127499, wave_seed: 92041}
+    - {realization_id: x05, wind_seed: 149129, wave_seed: 92051}
+  parameterization:
+    control_case_id: control_no_loss
+    severe_loss_fraction: 0.30
+    clone_property_ids: {1: 5, 2: 6, 3: 7}
+    zones:
+      - {zone_id: lower_monopile, member_id: 1}
+      - {zone_id: middle_monopile, member_id: 2}
+      - {zone_id: upper_monopile, member_id: 3}
+  sensors:
+    - {channel: M2N1MKxe, unit: N*m, label: z0_moment_x}
+    - {channel: M2N1MKye, unit: N*m, label: z0_moment_y}
+    - {channel: M1N1MKxe, unit: N*m, label: zminus10_moment_x}
+    - {channel: M1N1MKye, unit: N*m, label: zminus10_moment_y}
+    - {channel: -ReactMXss, unit: N*m, label: zminus20_reaction_moment_x}
+    - {channel: -ReactMYss, unit: N*m, label: zminus20_reaction_moment_y}
+  output_contract:
+    expected_sample_count: 1201
+    expected_time_step_s: 0.05
+    expected_channel_count: 64
+  monitoring:
+    windows_per_state: 5
+    window_duration_s: 10.0
+    analysis_start_time_s: 10.0
+    minimum_frequency_hz: 0.10
+    maximum_frequency_hz: 2.00
+  frozen_tracker:
+    regimes: [commissioning_reference, paired_excitation_oracle]
+    zone_order: [lower_monopile, middle_monopile, upper_monopile]
+    meaningful_loss_fraction: 0.05
+    credible_level: 0.95
+    degrees_of_freedom: 4.0
+    likelihood_power: 0.25
+    initial_healthy_probability: 1.0
+    healthy_persistence_probability: 0.98
+    healthy_entry_severity_weights: [0.60, 0.30, 0.10]
+    damage_progression_probability: 0.010
+    zone_switch_probability: 0.005
+    alarm_probability_threshold: 0.80
+    alarm_persistence_windows: 2
+  expected_dimensions:
+    realization_count: 5
+    cases_per_realization: 4
+    openfast_case_count: 20
+    source_channel_count: 6
+    state_count: 10
+    frequency_count: 20
+    feature_count: 120
+    trajectory_count: 30
+    windows_per_trajectory: 10
+  hypotheses:
+    maximum_operational_false_alarm_fraction: 0.05
+    maximum_oracle_false_alarm_fraction: 0.05
+    minimum_operational_trajectory_detection_fraction: 0.67
+    minimum_oracle_trajectory_detection_fraction: 0.80
+    maximum_operational_severity_mae: 0.12
+    maximum_oracle_severity_mae: 0.08
+    minimum_operational_final_zone_selection_fraction: 0.67
+    minimum_oracle_final_zone_selection_fraction: 0.67
+    minimum_operational_interval_coverage: 0.80
+    minimum_oracle_interval_coverage: 0.80

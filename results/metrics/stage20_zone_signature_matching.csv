@@ -1,0 +1,10 @@
+case_id,loss_fraction,observed_zone_id,predicted_zone_id,cosine_similarity,selected_as_best_match,correct_zone_selected
+lower_monopile_loss_30pct,0.3,lower_monopile,lower_monopile,0.43864961325,False,False
+lower_monopile_loss_30pct,0.3,lower_monopile,middle_monopile,0.503069909229,True,False
+lower_monopile_loss_30pct,0.3,lower_monopile,upper_monopile,0.0356131246897,False,False
+middle_monopile_loss_30pct,0.3,middle_monopile,lower_monopile,0.546811540892,False,True
+middle_monopile_loss_30pct,0.3,middle_monopile,middle_monopile,0.596983737815,True,True
+middle_monopile_loss_30pct,0.3,middle_monopile,upper_monopile,0.111581085494,False,True
+upper_monopile_loss_30pct,0.3,upper_monopile,lower_monopile,0.58559015987,False,False
+upper_monopile_loss_30pct,0.3,upper_monopile,middle_monopile,0.625351881105,True,False
+upper_monopile_loss_30pct,0.3,upper_monopile,upper_monopile,0.142710124887,False,False

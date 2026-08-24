@@ -1,0 +1,53 @@
+spectral_features:
+  minimum_frequency_hz: 0.05
+  maximum_frequency_hz: 3.0
+  number_of_frequencies: 300
+  measurement_noise_amplitude_fraction: 0.05
+
+reference_condition:
+  # The analysis is centered slightly inside the physical deterioration domain,
+  # allowing accurate two-sided sensitivities without evaluating negative loss.
+  zone_stiffness_multipliers: [0.95, 0.95, 0.95]
+  story_stiffness_multipliers: [0.95, 0.95, 0.95, 0.95, 0.95, 0.95]
+  damping_scale: 1.0
+  mass_scale: 1.0
+  excitation_amplitude_scale: 1.0
+
+finite_difference:
+  stiffness_step: 0.005
+  nuisance_step: 0.01
+
+parameter_sets:
+  three_zone:
+    - {name: theta_lower, kind: zone_stiffness, index: 0}
+    - {name: theta_middle, kind: zone_stiffness, index: 1}
+    - {name: theta_upper, kind: zone_stiffness, index: 2}
+
+  six_story:
+    - {name: theta_story_1, kind: story_stiffness, index: 0}
+    - {name: theta_story_2, kind: story_stiffness, index: 1}
+    - {name: theta_story_3, kind: story_stiffness, index: 2}
+    - {name: theta_story_4, kind: story_stiffness, index: 3}
+    - {name: theta_story_5, kind: story_stiffness, index: 4}
+    - {name: theta_story_6, kind: story_stiffness, index: 5}
+
+  three_zone_plus_damping:
+    - {name: theta_lower, kind: zone_stiffness, index: 0}
+    - {name: theta_middle, kind: zone_stiffness, index: 1}
+    - {name: theta_upper, kind: zone_stiffness, index: 2}
+    - {name: damping_scale, kind: damping_scale}
+
+  three_zone_plus_nuisance:
+    - {name: theta_lower, kind: zone_stiffness, index: 0}
+    - {name: theta_middle, kind: zone_stiffness, index: 1}
+    - {name: theta_upper, kind: zone_stiffness, index: 2}
+    - {name: damping_scale, kind: damping_scale}
+    - {name: mass_scale, kind: mass_scale}
+    - {name: excitation_scale, kind: excitation_amplitude_scale}
+
+verification:
+  effective_rank_relative_threshold: 0.01
+  high_parameter_correlation_threshold: 0.95
+  minimum_three_zone_rank: 3
+  maximum_condition_number_for_three_zone_spaced: 100.0
+  minimum_six_story_condition_ratio: 2.0

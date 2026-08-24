@@ -1,0 +1,62 @@
+stage20:
+  research_question: >-
+    Can the deliberately reduced six-DOF twin be commissioned on healthy
+    OpenFAST spectra and then predict unseen three-zone stiffness changes, and
+    how much residual model discrepancy must be carried into Bayesian tracking?
+  upstream:
+    observations_path: data/processed/stage19_openfast_deterioration.csv
+    observations_sha256: 512bc4bc5a10beebdb1dc8176fb20c57359c9319eeb0efc295e12f36c22aad79
+    stage19_validation_path: results/metrics/stage19_openfast_validation.csv
+    base_model_path: config/base_model.yaml
+    base_model_sha256: 9d715451efbd44803a8b74b1b340d02029a96bb024d01bba882bfc5fcd9a6bbb
+    calibration_case_id: control_no_loss
+    expected_holdout_case_count: 9
+  spectral_estimation:
+    start_time_s: 10.0
+    segment_samples: 400
+    minimum_frequency_hz: 0.05
+    maximum_frequency_hz: 2.0
+    channel_names:
+      - nacelle_imu_fore_aft_acceleration_m_per_s2
+      - nacelle_imu_side_side_acceleration_m_per_s2
+  reduced_twin:
+    interpretation: ordered_three_zone_shear_analogue
+    openfast_to_twin_zone_map:
+      lower_monopile: lower
+      middle_monopile: middle
+      upper_monopile: upper
+    sensor_mapping:
+      openfast_channels: [fore_aft_at_nacelle, side_side_at_nacelle]
+      reduced_model_dof_one_based: 6
+      limitation: >-
+        Both physical directions share the reduced top-DOF transfer function;
+        directional differences enter only through independently calibrated
+        colored excitation and retained discrepancy.
+    baseline_force_standard_deviation_n: 100000.0
+    force_distribution: [0.15, 0.30, 0.45, 0.60, 0.80, 1.00]
+  healthy_calibration:
+    parameter_names:
+      - mass_scale
+      - damping_scale
+      - fore_aft_force_standard_deviation_scale
+      - fore_aft_force_correlation_time_s
+      - side_side_force_standard_deviation_scale
+      - side_side_force_correlation_time_s
+    initial_parameters: [1.0, 1.0, 1.0, 0.75, 1.0, 0.75]
+    lower_bounds: [0.50, 0.20, 0.01, 0.05, 0.01, 0.05]
+    upper_bounds: [2.00, 5.00, 20.0, 5.00, 20.0, 5.00]
+    maximum_function_evaluations: 5000
+    robust_loss: soft_l1
+    robust_scale: 0.5
+  discrepancy:
+    nominal_standard_score: 1.959963984540054
+    target_coverage: 0.95
+  hypotheses:
+    minimum_healthy_log_rmse_improvement_fraction: 0.20
+    maximum_healthy_log_spectral_rmse: 1.00
+    minimum_mean_holdout_differential_cosine_similarity: 0.20
+    minimum_positive_similarity_case_fraction: 0.67
+    maximum_mean_holdout_differential_log_rmse: 1.50
+    required_monotonic_zone_fraction: 1.00
+    minimum_severe_zone_match_fraction: 0.67
+    maximum_required_discrepancy_inflation: 5.00

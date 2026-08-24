@@ -1,0 +1,5 @@
+method,regime,trajectory_count,false_alarm_fraction,pre_onset_false_alarm_trajectory_fraction,raw_severe_alarm_fraction,valid_severe_detection_fraction,trajectory_detection_fraction,severity_mae,severity_interval_coverage,final_zone_selection_fraction,mean_final_true_zone_probability,mean_true_state_log_likelihood_advantage_over_healthy
+hybrid_local_linear,commissioning_reference,9,0,0,0,0,0,0.298565232755,0,0.444444444444,0.337394847436,-5.46855773109
+hybrid_local_linear,paired_excitation_oracle,9,0,0,0,0,0,0.282547543517,0,0.777777777778,0.382857404843,-0.512054770472
+physics_template_control,commissioning_reference,9,0,0,0,0,0,0.27625434613,0.0222222222222,0.444444444444,0.341464092292,-0.139030396715
+physics_template_control,paired_excitation_oracle,9,0,0,0,0,0,0.293152206332,0,0.333333333333,0.341701203034,-2.51859143504

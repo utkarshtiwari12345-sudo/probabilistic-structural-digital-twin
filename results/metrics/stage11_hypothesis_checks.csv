@@ -1,0 +1,14 @@
+category,check,observed,operator,criterion,supported
+hypothesis,high_noise_rmse_increase,-0.00265270522677,>=,0,False
+hypothesis,high_data_rmse_effect,-0.0056722012531,<=,0,True
+hypothesis,high_severity_detection_improvement,0.09375,>=,0,True
+hypothesis,dropout_detection_reduction,-0.03125,<=,0.3,True
+hypothesis,mismatch_rmse_increase,-0.000227001820411,<=,0.03,True
+hypothesis,challenging_corner_detection_fraction,1,>=,0.4,True
+hypothesis,damaged_interval_coverage,0.901154891304,>=,0.7,True
+hypothesis,healthy_holdout_false_alarm_fraction,0,<=,0.1,True
+verification,factorial_cell_count,32,==,32,True
+verification,evaluation_history_count,64,==,64,True
+verification,optimizer_failure_fraction,0,<=,0,True
+verification,all_calibration_regimes_selected,1,==,1,True
+verification,finite_factorial_responses,1,==,1,True

@@ -1,0 +1,7 @@
+candidate_id,regime,realization_id,trajectory_zone,pre_onset_false_alarm,detected,first_persistent_alarm_window,detection_delay_windows
+distributed_moment_psd,commissioning_reference,e03,lower_monopile,True,False,,
+distributed_moment_psd,commissioning_reference,e03,middle_monopile,True,False,,
+distributed_moment_psd,commissioning_reference,e03,upper_monopile,True,False,,
+distributed_moment_psd,paired_excitation_oracle,e03,lower_monopile,False,True,7,1
+distributed_moment_psd,paired_excitation_oracle,e03,middle_monopile,False,True,8,2
+distributed_moment_psd,paired_excitation_oracle,e03,upper_monopile,False,True,8,2

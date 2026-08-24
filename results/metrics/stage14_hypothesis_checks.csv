@@ -1,0 +1,11 @@
+category,check,observed,operator,criterion,supported
+hypothesis,best_scaled_observability_rank,16,>=,16,True
+hypothesis,best_displacement_error_reduction_fraction,0.996688389871,>=,0.5,True
+hypothesis,best_stiffness_error_reduction_fraction,0.897555757493,>=,0.25,True
+hypothesis,accel_force_maximum_force_nrmse,0.0743366925174,<=,0.25,True
+hypothesis,calibrated_remedy_count,2,>=,1,True
+hypothesis,restored_remedy_count,0,>=,1,False
+verification,evaluation_run_count,24,==,24,True
+verification,scheme_count,6,==,6,True
+verification,nonfinite_fraction,0,<=,0,True
+verification,minimum_scaled_covariance_eigenvalue,9.99999999944e-13,>=,0,True

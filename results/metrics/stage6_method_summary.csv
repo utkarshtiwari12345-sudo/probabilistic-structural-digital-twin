@@ -1,0 +1,5 @@
+method,alarm_probability_threshold,pooled_rmse,pooled_bias,interior_coverage,mean_posterior_standard_deviation,nondamage_false_alarm_fraction,healthy_control_false_alarm_fraction,damage_detection_fraction,mean_detection_delay_windows,gradual_detection_delay_windows,abrupt_detection_delay_windows,optimizer_failure_fraction
+independent,0.8,0.0211031969174,-0.00205008637927,0.850427350427,0.0219054067982,0.0416666666667,0,1,3.41666666667,3.33333333333,1,0
+conservative,0.8,0.034929055564,0.00697654748721,0.0897435897436,0.00858329897342,0.125,0,0.666666666667,4.875,4.66666666667,5,0
+balanced,0.8,0.0175057790856,-0.000666893240333,0.696581196581,0.0125829370409,0.0416666666667,0,1,3.41666666667,3.33333333333,2,0
+responsive,0.8,0.0111469536522,-0.00238551637462,0.944444444444,0.0168365187789,0,0,1,2.5,3.33333333333,1,0

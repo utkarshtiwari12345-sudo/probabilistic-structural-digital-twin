@@ -1,0 +1,16 @@
+category,check,observed,operator,criterion,supported
+hypothesis,lower_zone_noise_effect_direction_reproduced,0.0111229160471,<=,0,False
+hypothesis,lower_zone_effect_agrees_with_stage11_margin,0.0137756212739,<=,0.004,False
+hypothesis,pooled_rmse_noise_increase,0.0120833060921,>=,0,True
+hypothesis,interval_width_noise_increase,0.0237026357531,>=,0,True
+hypothesis,detection_noise_effect_nonpositive,-0.1875,<=,0,True
+hypothesis,overall_detection_fraction,0.90625,>=,0.9,True
+hypothesis,damaged_interval_coverage,0.863722826087,>=,0.85,True
+hypothesis,healthy_false_alarm_fraction,0.00833333333333,<=,0.05,True
+hypothesis,lower_zone_effect_monte_carlo_standard_error,0.00253858513006,<=,0.0015,False
+verification,cell_count,8,==,8,True
+verification,damaged_history_count,160,==,160,True
+verification,context_noise_pair_count,80,==,80,True
+verification,healthy_history_count,40,==,40,True
+verification,optimizer_failure_fraction,0,<=,0,True
+verification,finite_responses,1,==,1,True

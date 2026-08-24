@@ -1,0 +1,103 @@
+study:
+  name: stage13_joint_state_parameter
+  sensor_layout: three_spaced
+  estimated_fast_state: [displacement, velocity, latent_force]
+  estimated_parameters: [theta_lower, theta_middle, theta_upper]
+
+monitoring:
+  number_of_windows: 16
+  update_interval_days: 7.0
+  deterioration_onset_day: 21.0
+  deterioration_completion_day: 98.0
+  final_lower_zone_loss_fraction: 0.15
+  meaningful_loss_fraction: 0.05
+  persistence_windows: 2
+
+response_window:
+  duration_s: 6.0
+  burn_in_s: 4.0
+  time_step_s: 0.02
+  metric_initialization_exclusion_s: 1.0
+
+measurement:
+  noise_standard_deviation_fraction: 0.05
+  reference_noise_seed: 20261500
+  candidate_alarm_probability_thresholds: [0.80, 0.90, 0.95, 0.975, 0.99]
+  maximum_calibration_false_alarm_fraction: 0.05
+
+cases:
+  matched:
+    truth_force_correlation_time_scale: 1.0
+    independent_channel_dropout_probability: 0.0
+  stressed:
+    truth_force_correlation_time_scale: 1.30
+    independent_channel_dropout_probability: 0.20
+
+state_scaling:
+  displacement_m: 0.01
+  velocity_m_per_s: 0.05
+  latent_force_n: 100000.0
+  stiffness_multiplier: 1.0
+
+initial_uncertainty:
+  displacement_standard_deviation_m: 0.005
+  velocity_standard_deviation_m_per_s: 0.03
+  latent_force_standard_deviation_n: 100000.0
+  stiffness_initial_mean: [0.98, 0.98, 0.98]
+  stiffness_standard_deviation: [0.025, 0.025, 0.025]
+  oracle_stiffness_standard_deviation: 1.0e-5
+
+process_uncertainty:
+  displacement_standard_deviation_per_step_m: 1.0e-5
+  velocity_standard_deviation_per_step_m_per_s: 0.001
+  stiffness_standard_deviation_per_fast_step: 0.0
+  stiffness_standard_deviation_per_monitoring_window: [0.008, 0.008, 0.008]
+
+filters:
+  oracle_ukf:
+    type: ukf
+    oracle_stiffness: true
+    alpha: 1.0
+    beta: 2.0
+    kappa: 0.0
+  joint_ukf:
+    type: ukf
+    oracle_stiffness: false
+    alpha: 1.0
+    beta: 2.0
+    kappa: 0.0
+  joint_enkf:
+    type: enkf
+    oracle_stiffness: false
+    ensemble_size: 100
+
+calibration:
+  healthy_replicates: 3
+  random_seed: 20261510
+
+evaluation:
+  replicates: 3
+  random_seed: 20261530
+
+observability:
+  horizon_steps: 30
+  finite_difference_step_scaled: 1.0e-4
+  effective_rank_relative_threshold: 1.0e-3
+
+verification:
+  expected_evaluation_runs: 18
+  minimum_covariance_eigenvalue: 0.0
+  maximum_nonfinite_fraction: 0.0
+
+# Scientific hypotheses can fail without suppressing the completed experiment.
+hypotheses:
+  minimum_scaled_observability_rank: 14
+  maximum_oracle_displacement_nrmse: 0.40
+  maximum_joint_displacement_nrmse: 0.65
+  maximum_joint_velocity_nrmse: 0.75
+  maximum_joint_stiffness_rmse: 0.06
+  maximum_joint_to_oracle_displacement_nrmse_ratio: 2.0
+  minimum_matched_detection_fraction: 0.80
+  minimum_stressed_detection_fraction: 0.60
+  minimum_matched_stiffness_coverage: 0.75
+  maximum_predamage_false_alarm_fraction: 0.05

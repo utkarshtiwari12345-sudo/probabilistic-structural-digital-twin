@@ -1,0 +1,7 @@
+regime,trajectory_zone,damage_onset_window,detected,first_persistent_alarm_window,detection_delay_windows,probability_threshold,persistence_windows
+commissioning_reference,lower_monopile,6,False,,,0.8,2
+commissioning_reference,middle_monopile,6,False,,,0.8,2
+commissioning_reference,upper_monopile,6,False,,,0.8,2
+paired_excitation_oracle,lower_monopile,6,False,,,0.8,2
+paired_excitation_oracle,middle_monopile,6,False,,,0.8,2
+paired_excitation_oracle,upper_monopile,6,False,,,0.8,2

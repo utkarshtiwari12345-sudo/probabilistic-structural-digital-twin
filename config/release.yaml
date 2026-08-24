@@ -1,0 +1,67 @@
+stage26:
+  release_name: probabilistic-structural-digital-twin
+  version: 0.1.0
+  author: Utkarsh Tiwari
+  publication_state: github_release_v0.1.0
+  repository_url: https://github.com/utkarshtiwari12345-sudo/probabilistic-structural-digital-twin
+  expected_upstream_stage_count: 27
+  github_limits:
+    maximum_file_size_bytes: 104857600
+    warning_file_size_bytes: 52428800
+    target_repository_size_bytes: 1073741824
+    source: https://docs.github.com/en/repositories/creating-and-managing-repositories/repository-limits
+  required_paths:
+    - README.md
+    - LICENSE
+    - CITATION.cff
+    - THIRD_PARTY_NOTICES.md
+    - CONTRIBUTING.md
+    - CHANGELOG.md
+    - SECURITY.md
+    - pyproject.toml
+    - requirements.txt
+    - requirements-lock.txt
+    - .gitignore
+    - .gitattributes
+    - .github/workflows/ci.yml
+    - docs/research_protocol.md
+    - docs/mathematical_formulation.md
+    - docs/research_communication.md
+    - docs/release_guide.md
+    - run_pipeline.py
+  required_evidence:
+    - figures/stage16_phase1_closure.png
+    - figures/stage23_openfast_environment_ensemble.png
+    - figures/stage24_openfast_sensor_information.png
+    - figures/stage25_openfast_external_confirmation.png
+    - results/metrics/stage16_confirmation_summary.csv
+    - results/metrics/stage23_ensemble_summary.csv
+    - results/metrics/stage24_validation_summary.csv
+    - results/metrics/stage25_external_confirmation_summary.csv
+    - results/metrics/stage25_hypothesis_checks.csv
+  forbidden_candidate_prefixes:
+    - .venv/
+    - work/
+    - results/logs/
+    - results/posteriors/
+    - data/processed/
+  forbidden_candidate_names:
+    - .env
+    - id_rsa
+    - id_ed25519
+  metadata_placeholder_tokens:
+    - OWNER
+    - Project author
+    - YOUR_NAME
+    - REPOSITORY_URL
+  evidence_patterns:
+    - figures/*.png
+    - results/metrics/*summary.csv
+    - results/metrics/*hypothesis_checks.csv
+    - results/metrics/*validation.csv
+    - results/metrics/*confirmation_checks.csv
+    - results/metrics/*recovery_gates.csv
+    - results/metrics/*manifest.csv
+    - results/metrics/*calibration.csv
+    - results/metrics/*detection_events.csv
+    - results/metrics/*feature_selection.csv

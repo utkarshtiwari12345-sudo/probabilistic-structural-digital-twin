@@ -1,0 +1,9 @@
+category,check,observed,operator,criterion,supported
+scientific_hypothesis,H20_1_healthy_calibration_improves_log_rmse,0.369373150575,>=,0.2,True
+scientific_hypothesis,H20_2_healthy_calibrated_log_rmse_is_bounded,1.45165518677,<=,1,False
+scientific_hypothesis,H20_3_mean_holdout_change_direction_is_preserved,0.408697963971,>=,0.2,True
+scientific_hypothesis,H20_4_positive_change_similarity_fraction,1,>=,0.67,True
+scientific_hypothesis,H20_5_mean_holdout_differential_log_rmse,0.167829648452,<=,1.5,True
+scientific_hypothesis,H20_6_predicted_severity_is_monotonic_by_zone,1,>=,1,True
+scientific_hypothesis,H20_7_severe_zone_signature_match_fraction,0.333333333333,>=,0.67,False
+scientific_hypothesis,H20_8_required_discrepancy_inflation_is_bounded,1,<=,5,True

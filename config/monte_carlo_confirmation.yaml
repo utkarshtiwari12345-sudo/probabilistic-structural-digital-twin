@@ -1,0 +1,69 @@
+study:
+  name: stage12_monte_carlo_confirmation
+  source_stage: 11
+  sensor_layout: three_spaced
+  inference_method: joint_commissioning
+  alarm_threshold_source: stage11_alarm_calibration.csv
+
+# The four contexts and both noise levels were frozen before the Stage 12 run.
+# Pairing uses identical periodogram and dropout streams within each replicate.
+noise_levels: [0.02, 0.10]
+
+contexts:
+  clean_early:
+    final_loss_fraction: 0.06
+    independent_periodogram_averages: 16
+    top_sensor_dropout_probability: 0.0
+    model_mismatch: matched
+  challenging_early:
+    final_loss_fraction: 0.06
+    independent_periodogram_averages: 4
+    top_sensor_dropout_probability: 0.25
+    model_mismatch: combined
+  clean_significant:
+    final_loss_fraction: 0.18
+    independent_periodogram_averages: 16
+    top_sensor_dropout_probability: 0.0
+    model_mismatch: matched
+  challenging_significant:
+    final_loss_fraction: 0.18
+    independent_periodogram_averages: 4
+    top_sensor_dropout_probability: 0.25
+    model_mismatch: combined
+
+deterioration:
+  damaged_zone: lower
+  onset_day: 42.0
+  completion_day: 196.0
+
+dropout:
+  sensor_one_based_within_layout: 3
+
+evaluation:
+  paired_replicates: 20
+  random_seed: 20261430
+  confidence_level: 0.95
+
+healthy_holdout:
+  replicates_per_regime_and_mismatch: 5
+  random_seed: 20261440
+
+verification:
+  expected_cells: 8
+  expected_damaged_histories: 160
+  expected_context_noise_pairs: 80
+  expected_healthy_histories: 40
+  maximum_optimizer_failure_fraction: 0.0
+
+# These confirmation criteria were declared before evaluating the new seeds.
+# Scientific failures are retained and do not suppress the experiment.
+hypotheses:
+  maximum_lower_zone_noise_effect: 0.0
+  maximum_absolute_stage11_effect_difference: 0.004
+  minimum_pooled_rmse_noise_effect: 0.0
+  minimum_interval_width_noise_effect: 0.0
+  maximum_detection_noise_effect: 0.0
+  minimum_overall_detection_fraction: 0.90
+  minimum_damaged_interval_coverage: 0.85
+  maximum_healthy_false_alarm_fraction: 0.05
+  maximum_lower_zone_effect_standard_error: 0.0015

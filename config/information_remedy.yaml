@@ -1,0 +1,115 @@
+study:
+  name: stage14_information_remedy
+  estimator: joint_ukf
+  baseline_acceleration_layout: three_spaced
+
+monitoring:
+  number_of_windows: 16
+  update_interval_days: 7.0
+  deterioration_onset_day: 21.0
+  deterioration_completion_day: 98.0
+  final_lower_zone_loss_fraction: 0.15
+  meaningful_loss_fraction: 0.05
+  persistence_windows: 2
+
+response_window:
+  duration_s: 6.0
+  burn_in_s: 4.0
+  time_step_s: 0.02
+  metric_initialization_exclusion_s: 1.0
+
+# All layouts are nested subsets of one simulated superset, so shared channels
+# receive identical noise and dropout realizations within a replicate.
+measurement_superset:
+  acceleration_dofs_one_based: [1, 3, 6]
+  include_latent_force: true
+  displacement_dofs_one_based: [3, 6]
+  strain_story_indices_one_based: [1, 3, 6]
+  modal_coordinates: 2
+  noise_standard_deviation_fraction:
+    acceleration: 0.05
+    force: 0.02
+    displacement: 0.01
+    strain: 0.02
+    modal: 0.02
+  reference_noise_seed: 20261600
+  candidate_alarm_probability_thresholds: [0.80, 0.90, 0.95, 0.975, 0.99]
+  maximum_calibration_false_alarm_fraction: 0.05
+
+schemes:
+  accel_only: [acceleration]
+  accel_force: [acceleration, force]
+  accel_displacement: [acceleration, displacement]
+  accel_strain: [acceleration, strain]
+  accel_modal: [acceleration, modal]
+  combined: [acceleration, force, displacement, strain, modal]
+
+cases:
+  matched:
+    truth_force_correlation_time_scale: 1.0
+    independent_channel_dropout_probability: 0.0
+  stressed:
+    truth_force_correlation_time_scale: 1.30
+    independent_channel_dropout_probability: 0.20
+
+state_scaling:
+  displacement_m: 0.01
+  velocity_m_per_s: 0.05
+  latent_force_n: 100000.0
+  stiffness_multiplier: 1.0
+
+initial_uncertainty:
+  displacement_standard_deviation_m: 0.005
+  velocity_standard_deviation_m_per_s: 0.03
+  latent_force_standard_deviation_n: 100000.0
+  stiffness_initial_mean: [0.98, 0.98, 0.98]
+  stiffness_standard_deviation: [0.025, 0.025, 0.025]
+
+process_uncertainty:
+  displacement_standard_deviation_per_step_m: 1.0e-5
+  velocity_standard_deviation_per_step_m_per_s: 0.001
+  stiffness_standard_deviation_per_fast_step: 0.0
+  stiffness_standard_deviation_per_monitoring_window: [0.008, 0.008, 0.008]
+
+filter:
+  alpha: 1.0
+  beta: 2.0
+  kappa: 0.0
+
+calibration:
+  healthy_replicates: 2
+  random_seed: 20261610
+
+evaluation:
+  replicates: 2
+  random_seed: 20261630
+
+observability:
+  horizon_steps: 30
+  finite_difference_step_scaled: 1.0e-4
+  effective_rank_relative_threshold: 1.0e-3
+
+verification:
+  expected_evaluation_runs: 24
+  expected_schemes: 6
+  minimum_covariance_eigenvalue: 0.0
+  maximum_nonfinite_fraction: 0.0
+
+# Frozen before outcomes. A scheme restores joint recovery only if every
+# primary gate passes in both matched and stressed evaluation cases.
+recovery_gates:
+  maximum_displacement_nrmse: 0.65
+  maximum_velocity_nrmse: 0.75
+  maximum_stiffness_rmse: 0.06
+  minimum_matched_stiffness_coverage: 0.75
+  maximum_healthy_false_alarm_fraction: 0.05
+  minimum_stressed_detection_fraction: 0.60
+  maximum_predamage_false_alarm_fraction: 0.05
+
+hypotheses:
+  minimum_best_scaled_observability_rank: 16
+  minimum_displacement_error_reduction_fraction: 0.50
+  minimum_stiffness_error_reduction_fraction: 0.25
+  maximum_best_force_nrmse: 0.25
+  minimum_number_of_calibrated_remedies: 1
+  minimum_number_of_restored_remedies: 1

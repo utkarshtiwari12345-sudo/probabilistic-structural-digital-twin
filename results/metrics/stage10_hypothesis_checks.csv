@@ -1,0 +1,11 @@
+category,check,observed,comparator,threshold,supported
+verification,matched false alarms controlled for operational layout,0,<=,0.05,True
+verification,optimizer convergence,0,<=,0,True
+hypothesis,three spaced sensors improve RMSE over top only,0.475199945865,<=,0.8,True
+hypothesis,three spaced sensors contract uncertainty,0.535865295805,<=,0.85,True
+hypothesis,three spaced sensors improve localisation,0.444444444444,>=,0.2,True
+hypothesis,spaced placement improves RMSE over clustered placement,0.55288401761,<=,0.9,True
+hypothesis,three spaced sensors retain damage detection,0.916666666667,>=,0.8,True
+hypothesis,three spaced sensors control mass-discrepancy alarms,0,<=,0.2,True
+hypothesis,spaced placement improves information conditioning,1.33204557431,>=,1.2,True
+hypothesis,six sensors show diminishing RMSE returns,0.0853844784916,<=,0.25,True

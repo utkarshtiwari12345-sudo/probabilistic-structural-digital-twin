@@ -1,0 +1,69 @@
+time:
+  start_s: 0.0
+  end_s: 120.0
+  update_interval_s: 1.0
+
+zone_names: [lower, middle, upper]
+
+# Severity labels are decision-independent descriptions of known truth. Later
+# alarm thresholds will be calibrated probabilistically and must not be confused
+# with these descriptive boundaries.
+condition_thresholds:
+  healthy_max_loss_fraction: 0.01
+  early_max_loss_fraction: 0.05
+  moderate_max_loss_fraction: 0.12
+
+scenarios:
+  healthy:
+    description: Healthy control with no physical deterioration.
+    zone_processes: {}
+
+  gradual_lower:
+    description: Smooth fatigue-like deterioration confined to the lower zone.
+    zone_processes:
+      lower:
+        - process: smooth_gradual
+          onset_s: 20.0
+          completion_s: 110.0
+          final_loss_fraction: 0.18
+
+  gradual_plus_abrupt_lower:
+    description: Gradual lower-zone deterioration followed by an abrupt event.
+    zone_processes:
+      lower:
+        - process: smooth_gradual
+          onset_s: 20.0
+          completion_s: 110.0
+          final_loss_fraction: 0.10
+        - process: abrupt
+          event_time_s: 70.0
+          loss_fraction: 0.10
+
+  sequential_two_zone:
+    description: Lower-zone gradual loss followed by middle-zone abrupt loss.
+    zone_processes:
+      lower:
+        - process: smooth_gradual
+          onset_s: 15.0
+          completion_s: 100.0
+          final_loss_fraction: 0.12
+      middle:
+        - process: abrupt
+          event_time_s: 60.0
+          loss_fraction: 0.08
+
+  stochastic_fatigue_lower:
+    description: Reproducible monotone gamma-process lower-zone realization.
+    random_seed: 20260822
+    zone_processes:
+      lower:
+        - process: gamma
+          onset_s: 10.0
+          mean_final_loss_fraction: 0.15
+          coefficient_of_variation: 0.15
+          maximum_loss_fraction: 0.35
+
+verification:
+  bound_tolerance: 1.0e-12
+  monotonicity_tolerance: 1.0e-12
+  frequency_monotonicity_tolerance_hz: 1.0e-12

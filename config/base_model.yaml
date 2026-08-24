@@ -1,0 +1,72 @@
+model:
+  name: six_dof_offshore_support_analogue
+  description: >-
+    Six-lumped-mass lateral shear model used as a transparent methodological
+    analogue of an offshore-wind tower/support structure. It is not a complete
+    aero-hydro-servo-elastic turbine model.
+  n_dof: 6
+  level_spacing_m: 15.0
+
+structural_properties:
+  # Lumped lateral masses at elevations 15, 30, ..., 90 m.
+  # The larger top mass represents an effective RNA contribution.
+  masses_kg:
+    - 420000.0
+    - 400000.0
+    - 380000.0
+    - 360000.0
+    - 340000.0
+    - 520000.0
+
+  # Translational spring stiffnesses connecting each level to the level below.
+  # Story 1 connects the first DOF to the fixed base.
+  story_stiffness_n_per_m:
+    - 30000000.0
+    - 28000000.0
+    - 26000000.0
+    - 24000000.0
+    - 22000000.0
+    - 20000000.0
+
+  # Zero-based story indices. Every story must appear exactly once.
+  stiffness_zones:
+    lower: [0, 1]
+    middle: [2, 3]
+    upper: [4, 5]
+
+damping:
+  formulation: rayleigh
+  # One-based mode numbers are used in configuration and reporting.
+  target_modes: [1, 3]
+  target_modal_damping_ratios: [0.015, 0.015]
+
+dynamics:
+  integrator: newmark_average_acceleration
+  free_response:
+    duration_s: 40.0
+    time_step_s: 0.005
+    initial_top_displacement_m: 0.01
+  forced_response:
+    duration_s: 30.0
+    time_step_s: 0.02
+    force_dof_one_based: 6
+    force_amplitude_n: 100000.0
+    forcing_frequency_ratio_to_first_mode: 0.90
+  convergence:
+    duration_s: 20.0
+    time_steps_s: [0.08, 0.04, 0.02]
+    reference_time_step_s: 0.0025
+
+verification:
+  symmetry_atol: 1.0e-10
+  reconstruction_atol: 1.0e-10
+  mass_orthogonality_atol: 1.0e-10
+  stiffness_diagonalization_rtol: 1.0e-10
+  eigen_residual_rtol: 1.0e-10
+  damping_ratio_atol: 1.0e-12
+  effective_mass_sum_atol: 1.0e-12
+  maximum_energy_increase_fraction: 1.0e-10
+  energy_balance_rtol: 5.0e-4
+  equilibrium_residual_rtol: 1.0e-10
+  state_space_agreement_rtol: 1.0e-3
+  minimum_convergence_order: 1.8

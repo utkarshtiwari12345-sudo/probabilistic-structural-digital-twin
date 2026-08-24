@@ -1,0 +1,24 @@
+# Exact environment used for the Stage 26 release audit (Python 3.12.13).
+# Install the project and development tools reproducibly with:
+# python -m pip install -e ".[dev]" -c requirements-lock.txt
+contourpy==1.3.3
+cycler==0.12.1
+fonttools==4.63.0
+kiwisolver==1.5.0
+matplotlib==3.11.1
+numpy==2.5.2
+packaging==26.3
+pandas==2.3.3
+pillow==12.3.0
+pyparsing==3.3.2
+pytest==9.1.1
+pytest-cov==7.1.0
+python-dateutil==2.9.0.post0
+pytz==2026.3.post1
+PyYAML==6.0.3
+ruff==0.16.4
+scipy==1.18.1
+setuptools==84.0.0
+six==1.17.0
+tqdm==4.70.0
+tzdata==2026.3

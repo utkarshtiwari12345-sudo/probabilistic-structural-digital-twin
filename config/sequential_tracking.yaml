@@ -1,0 +1,88 @@
+monitoring_sequence:
+  number_of_windows: 31
+  update_interval_days: 7.0
+  minimum_frequency_hz: 0.05
+  maximum_frequency_hz: 3.0
+  number_of_frequencies: 60
+  independent_periodogram_averages: 8
+  sensor_layout: three_spaced
+  noise_amplitude_fraction: 0.05
+
+parameter_model:
+  names: [theta_lower, theta_middle, theta_upper]
+  lower_bounds: [0.65, 0.65, 0.65]
+  upper_bounds: [1.0, 1.0, 1.0]
+  initial_prior_mean: [0.98, 0.98, 0.98]
+  initial_prior_standard_deviation: [0.08, 0.08, 0.08]
+  credible_level: 0.95
+
+process_models:
+  conservative:
+    standard_deviation_per_window: [0.002, 0.002, 0.002]
+  balanced:
+    standard_deviation_per_window: [0.008, 0.008, 0.008]
+  responsive:
+    standard_deviation_per_window: [0.020, 0.020, 0.020]
+
+optimizer:
+  maximum_iterations: 250
+  derivative_relative_step: 1.0e-4
+
+truth_scenarios:
+  healthy:
+    zone_processes: {}
+  gradual_lower:
+    zone_processes:
+      lower:
+        - process: smooth_gradual
+          onset_day: 42.0
+          completion_day: 196.0
+          final_loss_fraction: 0.18
+  abrupt_middle:
+    zone_processes:
+      middle:
+        - process: abrupt
+          event_day: 105.0
+          loss_fraction: 0.18
+  multi_zone:
+    zone_processes:
+      lower:
+        - process: smooth_gradual
+          onset_day: 35.0
+          completion_day: 154.0
+          final_loss_fraction: 0.12
+      middle:
+        - process: abrupt
+          event_day: 126.0
+          loss_fraction: 0.10
+
+alarm:
+  meaningful_loss_fraction: 0.05
+  persistence_windows: 2
+  candidate_probability_thresholds: [0.80, 0.90, 0.95, 0.975, 0.99]
+  maximum_calibration_false_alarm_fraction: 0.05
+
+replication:
+  healthy_calibration_replicates: 2
+  evaluation_replicates: 3
+  calibration_seed: 20260920
+  # Seed 20260930 was used as a pilot to select the process model. The frozen
+  # responsive setting is evaluated below using this untouched holdout seed.
+  evaluation_seed: 20261001
+
+model_selection:
+  pilot_seed: 20260930
+  recommended_process_model: responsive
+  pilot_pooled_rmse: 0.0108495650
+  pilot_interior_coverage: 0.9487179487
+
+verification:
+  maximum_recommended_pooled_rmse: 0.020
+  minimum_recommended_interior_coverage: 0.90
+  maximum_nondamage_false_alarm_fraction: 0.05
+  maximum_recommended_gradual_detection_delay_windows: 4
+  maximum_recommended_abrupt_detection_delay_windows: 2
+  maximum_optimizer_failure_fraction: 0.0
+  minimum_recommended_detection_fraction: 0.95
+  minimum_conservative_to_recommended_rmse_ratio: 2.0
+  minimum_conservative_abrupt_delay_penalty_windows: 2.0

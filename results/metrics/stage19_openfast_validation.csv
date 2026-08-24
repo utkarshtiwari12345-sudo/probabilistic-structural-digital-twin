@@ -1,0 +1,14 @@
+category,check,observed,operator,criterion,supported
+prerequisite,stage18_healthy_gate,True,==,True,True
+provenance,solver_executable_hash,True,==,True,True
+experiment,case_count,10,==,10,True
+experiment,all_solver_executions_completed,True,==,True,True
+experiment,all_output_contracts_passed,True,==,True,True
+deck,dependency_count_each_case,31,==,31,True
+deck,unresolved_dependency_count,0,==,0,True
+parameterization,patch_row_count,30,==,30,True
+parameterization,target_and_nontarget_scales_exact,True,==,True,True
+parameterization,mass_and_geometry_preserved,True,==,True,True
+output,combined_observation_rows,12010,==,12010,True
+output,all_observations_finite,True,==,True,True
+control,zero_loss_max_abs_error_m_per_s2,0.0,<=,1e-10,True

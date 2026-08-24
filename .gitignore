@@ -1,0 +1,58 @@
+# Python environments and caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+work/
+
+# Packaging
+build/
+dist/
+*.egg-info/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Generated research artifacts
+data/raw/*
+data/processed/*
+results/metrics/*
+results/posteriors/*
+results/logs/*
+figures/*
+
+# Publish compact, reviewable evidence while excluding bulk intermediate data.
+!results/metrics/*summary.csv
+!results/metrics/*hypothesis_checks.csv
+!results/metrics/*validation.csv
+!results/metrics/*confirmation_checks.csv
+!results/metrics/*recovery_gates.csv
+!results/metrics/*manifest.csv
+!results/metrics/*calibration.csv
+!results/metrics/*detection_events.csv
+!results/metrics/*feature_selection.csv
+!results/metrics/*channel_mapping.csv
+!results/metrics/stage4_identifiability.csv
+!results/metrics/stage20_zone_signature_matching.csv
+!results/release/
+!results/release/**
+!figures/*.png
+
+# Pin the small official OpenFAST Stage 17 reference and its provenance.
+!data/raw/openfast/
+!data/raw/openfast/v5.0.0/
+!data/raw/openfast/v5.0.0/PROVENANCE.md
+!data/raw/openfast/v5.0.0/5MW_OC3Mnpl_DLL_WTurb_WavesIrr/
+!data/raw/openfast/v5.0.0/5MW_OC3Mnpl_DLL_WTurb_WavesIrr/*.fst
+!data/raw/openfast/v5.0.0/5MW_OC3Mnpl_DLL_WTurb_WavesIrr/*.outb
+!data/raw/openfast/v5.0.0/stage18_healthy_deck/
+!data/raw/openfast/v5.0.0/stage18_healthy_deck/**
+
+# Preserve directory placeholders where used
+!.gitkeep

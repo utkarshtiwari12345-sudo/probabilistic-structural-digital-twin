@@ -1,0 +1,54 @@
+stage18:
+  research_question: >-
+    Can a complete, nominally healthy OC3 OpenFAST deck be made hermetic,
+    sensor-matched, and execution-ready before deterioration is introduced?
+  source:
+    repository: https://github.com/OpenFAST/r-test
+    archive_url: https://github.com/OpenFAST/r-test/archive/refs/tags/v5.0.0.zip
+    release_tag: v5.0.0
+    release_commit: dd5feaa
+    source_root: work/r-test-source/r-test-5.0.0/glue-codes/openfast
+    case_directory: 5MW_OC3Mnpl_DLL_WTurb_WavesIrr
+    primary_file: 5MW_OC3Mnpl_DLL_WTurb_WavesIrr/5MW_OC3Mnpl_DLL_WTurb_WavesIrr.fst
+    primary_sha256: 1d09363400d2c4d3fbb3387df72bda130b1560e1d7e353ad81ab62238a34222d
+    elastodyn_file: 5MW_OC3Mnpl_DLL_WTurb_WavesIrr/NRELOffshrBsline5MW_OC3Monopile_ElastoDyn.dat
+    elastodyn_sha256: 7f366be9ee5d90c9d90b326c801bc875e15153614153789c17a1b4fe4167715c
+    expected_dependency_count_without_controller: 30
+    allowed_external_dependencies: [DISCON.dll]
+  controller:
+    release_asset: work/openfast-v5.0.0/DISCON.dll
+    target_file: 5MW_Baseline/ServoData/DISCON.dll
+    sha256: a2501ada8494c665c3a2ae6aa287a646dd2465ce4ab8c751998a47cf6a9ba548
+  deck:
+    curated_root: data/raw/openfast/v5.0.0/stage18_healthy_deck
+    run_root: work/stage18_openfast_run
+    requested_elastodyn_channels:
+      - NcIMUTAxs
+      - NcIMUTAys
+    expected_total_file_count: 31
+    expected_input_settings:
+      TMax: 60.0
+      DT: 0.01
+      DT_Out: 0.05
+      TStart: 0.0
+      OutFileFmt: 4
+      CompElast: 1
+      CompInflow: 1
+      CompAero: 2
+      CompServo: 1
+      CompSeaSt: 1
+      CompHydro: 1
+      CompSub: 1
+  solver:
+    repository: https://github.com/OpenFAST/openfast
+    release_tag: v5.0.0
+    executable_path: work/openfast-v5.0.0/OpenFAST_Double_Release.exe
+    executable_sha256: f947198a7dff813a9f221a22a29fd451d40a51a5e976d1847900f1c890d7ffc7
+    timeout_s: 180.0
+  output_contract:
+    generated_output_path: data/processed/stage18_openfast_healthy.outb
+    expected_sample_count: 1201
+    expected_time_step_s: 0.05
+    required_channels:
+      - {source_channel: NcIMUTAxs, source_unit: m/s^2, target_name: nacelle_imu_fore_aft_acceleration_m_per_s2, target_unit: m/s^2, scale_to_target: 1.0}
+      - {source_channel: NcIMUTAys, source_unit: m/s^2, target_name: nacelle_imu_side_side_acceleration_m_per_s2, target_unit: m/s^2, scale_to_target: 1.0}

@@ -1,0 +1,5 @@
+method,regime,commissioning_false_alarm_fraction,severe_detection_fraction,severe_alarm_fraction_including_false_alarm_carryover,trajectory_detection_fraction,mean_detection_delay_windows,severe_severity_mae,severe_severity_interval_coverage,final_zone_selection_fraction,mean_final_true_zone_probability,mean_severe_true_state_probability,mean_true_state_log_likelihood_advantage_over_healthy,maximum_damage_probability,damage_probability_brier_score
+physics_template_control,commissioning_reference,0,0,0,0,,0.210098024267,1,0.333333333333,0.336129754805,0.0484763132613,0.351068957372,0.686801715316,0.175232362648
+hybrid_local_linear,commissioning_reference,0.6,0,1,0,,0.0992294955192,0,0.666666666667,0.361179443419,0.00282530487843,3.26542539504,1,0.4207815862
+physics_template_control,paired_excitation_oracle,0,0,0,0,,0.289934499389,0,0.333333333333,0.338250806728,0.000168363029949,-2.30539568305,0.145258664521,0.416930104438
+hybrid_local_linear,paired_excitation_oracle,0,0,0,0,,0.246602585659,0.266666666667,0.666666666667,0.388462987792,0.00490797680104,0.266916588845,0.650131098795,0.229024285724

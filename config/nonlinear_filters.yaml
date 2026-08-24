@@ -1,0 +1,41 @@
+data_source:
+  stage6_tracking_config: sequential_tracking.yaml
+  reuse_stage6_holdout_seed: true
+
+observation_model:
+  representation: bias_corrected_log_averaged_periodogram
+  covariance: exact_log_gamma_variance
+
+filters:
+  laplace:
+    stage6_process_model: responsive
+  ukf:
+    alpha: 1.0
+    beta: 2.0
+    kappa: 0.0
+  enkf_50:
+    ensemble_size: 50
+  enkf_200:
+    ensemble_size: 200
+
+process_model:
+  standard_deviation_per_window: [0.020, 0.020, 0.020]
+
+random_seeds:
+  calibration_filter_seed: 20261010
+  evaluation_filter_seed: 20261020
+
+verification:
+  maximum_ukf_pooled_rmse: 0.030
+  minimum_ukf_interior_coverage: 0.80
+  maximum_enkf_200_pooled_rmse: 0.030
+  minimum_enkf_200_interior_coverage: 0.80
+  maximum_nondamage_false_alarm_fraction: 0.05
+  minimum_damage_detection_fraction: 0.95
+  maximum_abrupt_detection_delay_windows: 3
+  maximum_enkf_size_rmse_difference: 0.010
+  maximum_enkf_200_rmse_ratio_to_laplace: 2.0
+  # The initial comparison used 2.0 as the UKF reference-ratio limit. Its
+  # violation is retained as a required approximation-failure finding.
+  minimum_ukf_rmse_ratio_to_laplace: 2.0
+  minimum_covariance_eigenvalue: 0.0

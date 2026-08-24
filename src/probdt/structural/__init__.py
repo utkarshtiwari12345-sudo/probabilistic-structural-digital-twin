@@ -1,0 +1,63 @@
+"""Physics-based structural models used by the probabilistic digital twin."""
+
+from probdt.structural.dynamics import (
+    ContinuousStateSpace,
+    DiscreteStateSpace,
+    DynamicsError,
+    EnergyBalance,
+    TimeResponse,
+    build_continuous_state_space,
+    calculate_energy_balance,
+    discretize_state_space_zoh,
+    simulate_discrete_state_space,
+    simulate_newmark_average_acceleration,
+)
+from probdt.structural.matrices import (
+    MatrixValidationReport,
+    StructuralMatrixError,
+    apply_stiffness_multipliers,
+    assemble_mass_matrix,
+    assemble_stiffness_matrix,
+    assemble_story_stiffness_components,
+    assemble_zonal_stiffness_components,
+    validate_structural_matrices,
+)
+from probdt.structural.modal_analysis import (
+    ModalAnalysisError,
+    ModalProperties,
+    RayleighDampingModel,
+    assemble_rayleigh_damping,
+    calculate_modal_damping_ratios,
+    fit_rayleigh_coefficients,
+    modal_orthogonality_errors,
+    solve_modal_properties,
+)
+
+__all__ = [
+    "ContinuousStateSpace",
+    "DiscreteStateSpace",
+    "DynamicsError",
+    "EnergyBalance",
+    "MatrixValidationReport",
+    "ModalAnalysisError",
+    "ModalProperties",
+    "RayleighDampingModel",
+    "StructuralMatrixError",
+    "TimeResponse",
+    "apply_stiffness_multipliers",
+    "assemble_mass_matrix",
+    "assemble_rayleigh_damping",
+    "assemble_stiffness_matrix",
+    "assemble_story_stiffness_components",
+    "assemble_zonal_stiffness_components",
+    "build_continuous_state_space",
+    "calculate_energy_balance",
+    "calculate_modal_damping_ratios",
+    "discretize_state_space_zoh",
+    "fit_rayleigh_coefficients",
+    "modal_orthogonality_errors",
+    "simulate_discrete_state_space",
+    "simulate_newmark_average_acceleration",
+    "solve_modal_properties",
+    "validate_structural_matrices",
+]

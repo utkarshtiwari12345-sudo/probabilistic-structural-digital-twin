@@ -1,0 +1,61 @@
+study:
+  name: stage16_phase1_closure
+  source_information_config: information_remedy.yaml
+  source_uncertainty_config: uncertainty_calibration.yaml
+  source_pipeline_manifest: phase1_pipeline.yaml
+  fixed_sensor_scheme: combined
+  fixed_uncertainty_method: scalar_inflation
+
+frozen_decision:
+  scalar_inflation_factor: 2.15856217967
+  scalar_factor_absolute_tolerance: 1.0e-10
+  alarm_probability_threshold: 0.80
+  nominal_coverage: 0.95
+
+confirmation:
+  damaged_replicates_per_case: 10
+  damaged_random_seed: 20261810
+  healthy_replicates: 25
+  healthy_random_seed: 20261850
+
+confirmation_gates:
+  minimum_pooled_stiffness_coverage: 0.85
+  maximum_pooled_stiffness_coverage: 0.99
+  minimum_case_stiffness_coverage: 0.85
+  maximum_case_stiffness_coverage: 0.99
+  minimum_zone_stiffness_coverage: 0.85
+  maximum_zone_stiffness_coverage: 0.99
+  minimum_coverage_lower_confidence_bound: 0.80
+  maximum_mean_interval_width: 0.03
+  maximum_mean_theta_nees: 7.815
+  maximum_stiffness_rmse: 0.012
+  maximum_displacement_nrmse: 0.012
+  maximum_force_nrmse: 0.08
+  minimum_stressed_detection_fraction: 0.90
+  minimum_stressed_detection_wilson_lower: 0.70
+  minimum_stressed_localization_fraction: 0.90
+  minimum_stressed_localization_wilson_lower: 0.70
+  maximum_healthy_zone_false_alarm_fraction: 0.05
+  maximum_healthy_zone_false_alarm_wilson_upper: 0.05
+  maximum_healthy_structure_false_alarm_fraction: 0.05
+  maximum_healthy_structure_false_alarm_wilson_upper: 0.15
+  maximum_predamage_false_alarm_fraction: 0.05
+
+verification:
+  expected_prior_stages: 17
+  expected_audited_artifacts: 35
+  expected_confirmation_rows: 40
+  expected_healthy_rows: 50
+  expected_damaged_histories: 20
+  expected_healthy_histories: 25
+  maximum_nonfinite_fraction: 0.0
+
+hypotheses:
+  minimum_scalar_coverage: 0.85
+  maximum_scalar_coverage: 0.99
+  minimum_raw_to_scalar_coverage_gain: 0.60
+  maximum_scalar_interval_score_ratio_to_raw: 0.25
+  maximum_scalar_mean_theta_nees: 7.815
+  minimum_stressed_detection_fraction: 0.90
+  maximum_healthy_zone_false_alarm_fraction: 0.05
+  minimum_phase1_artifact_pass_fraction: 1.0

@@ -1,0 +1,11 @@
+category,check,observed,comparator,threshold,supported
+verification,matched false alarms controlled for operational methods,0,<=,0.05,True
+verification,optimizer convergence,0,<=,0,True
+hypothesis,joint inference reduces mass-discrepancy false alarms,0.666666666667,>=,0.5,True
+hypothesis,combined healthy discrepancy remains controlled,0,<=,0.2,True
+hypothesis,joint inference improves damaged-case RMSE,0.643065607236,<=,0.85,True
+hypothesis,joint inference retains matched-model accuracy,0.0223927739975,<=,0.03,True
+hypothesis,joint inference retains damage detection,0.916666666667,>=,0.8,True
+hypothesis,joint inference retains damaged-state coverage,0.901709401709,>=,0.75,True
+hypothesis,joint data-only model is rank deficient,1,>=,1,True
+hypothesis,weak prior inflates stiffness uncertainty,2.51481288355,>=,1.2,True

@@ -1,0 +1,13 @@
+category,check,observed,operator,criterion,supported
+scientific_hypothesis,H23_1_hybrid_operational_false_alarm_control,0,<=,0.05,True
+scientific_hypothesis,H23_2_hybrid_oracle_false_alarm_control,0,<=,0.05,True
+scientific_hypothesis,H23_3_hybrid_operational_trajectory_detection,0,>=,0.67,False
+scientific_hypothesis,H23_4_hybrid_oracle_trajectory_detection,0,>=,0.8,False
+scientific_hypothesis,H23_5_hybrid_operational_severity_mae,0.298565232755,<=,0.12,False
+scientific_hypothesis,H23_6_hybrid_oracle_severity_mae,0.282547543517,<=,0.08,False
+scientific_hypothesis,H23_7_hybrid_operational_final_zone_selection,0.444444444444,>=,0.67,False
+scientific_hypothesis,H23_8_hybrid_oracle_final_zone_selection,0.777777777778,>=,0.67,True
+scientific_hypothesis,H23_9_hybrid_operational_interval_coverage,0,>=,0.8,False
+scientific_hypothesis,H23_10_hybrid_oracle_interval_coverage,0,>=,0.8,False
+scientific_hypothesis,H23_11_operational_detection_improves_over_physics,0,>=,0.2,False
+scientific_hypothesis,H23_12_oracle_detection_improves_over_physics,0,>=,0.2,False

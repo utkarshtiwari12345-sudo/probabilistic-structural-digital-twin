@@ -1,0 +1,117 @@
+stage24:
+  research_question: >-
+    Can measurements distributed along the OpenFAST monopile, combined with
+    excitation-rejecting band and transmissibility features, restore severe
+    damage detection and localisation without sacrificing false-alarm control?
+  upstream:
+    stage23_case_manifest_path: results/metrics/stage23_openfast_case_manifest.csv
+    stage23_case_manifest_sha256: be9893a331237c6410c2496369f7f2563803d79a447ce90873547843229d08c6
+    stage23_validation_path: results/metrics/stage23_validation.csv
+    stage23_validation_sha256: 2c7b22b356fe621d5490562da6de459bbd9d458761b27330055216d6cb2e7ab1
+    stage23_posterior_history_path: results/metrics/stage23_posterior_history.csv
+    stage23_posterior_history_sha256: 581a4b14c3f91d8b68821cb155cf614d1f2b1406d5362148db07aff05a3d43ab
+    stage23_detection_events_path: results/metrics/stage23_detection_events.csv
+    stage23_detection_events_sha256: fb323eef993a4ef9345d208129a3f7ec0dbf09b8ecf5ae2bc51061af2fcc5253
+    stage23_summary_path: results/metrics/stage23_ensemble_summary.csv
+    stage23_summary_sha256: 508a0fcede87c7cb17466bcf8d3e1e103cf6a45cc2d80a5ae8249ab8524347f9
+  split:
+    development_realizations: [e01, e02]
+    validation_realization: e03
+    cross_validation: leave_one_development_environment_out
+    limitation: >-
+      The e03 outputs already existed and the two-channel Stage 23 result was
+      observed before Stage 24. Its newly evaluated distributed-moment features
+      remain excluded from candidate selection and fitting, but this is an
+      internal feature holdout rather than external confirmation. Stage 25 must
+      use newly generated environmental realizations.
+  sensors:
+    nacelle_acceleration:
+      - {channel: NcIMUTAxs, unit: m/s^2, label: nacelle_fore_aft_acceleration}
+      - {channel: NcIMUTAys, unit: m/s^2, label: nacelle_side_side_acceleration}
+    distributed_bending_moment:
+      - {channel: M2N1MKxe, unit: N*m, label: z0_moment_x}
+      - {channel: M2N1MKye, unit: N*m, label: z0_moment_y}
+      - {channel: M1N1MKxe, unit: N*m, label: zminus10_moment_x}
+      - {channel: M1N1MKye, unit: N*m, label: zminus10_moment_y}
+      - {channel: -ReactMXss, unit: N*m, label: zminus20_reaction_moment_x}
+      - {channel: -ReactMYss, unit: N*m, label: zminus20_reaction_moment_y}
+    transmissibility_pairs:
+      - {numerator: z0_moment_x, denominator: zminus10_moment_x}
+      - {numerator: zminus10_moment_x, denominator: zminus20_reaction_moment_x}
+      - {numerator: z0_moment_y, denominator: zminus10_moment_y}
+      - {numerator: zminus10_moment_y, denominator: zminus20_reaction_moment_y}
+  spectral_estimation:
+    windows_per_state: 5
+    window_duration_s: 10.0
+    analysis_start_time_s: 10.0
+    minimum_frequency_hz: 0.10
+    maximum_frequency_hz: 2.00
+    frequency_bands_hz:
+      - [0.10, 0.40]
+      - [0.50, 1.00]
+      - [1.10, 2.00]
+  candidates:
+    - {candidate_id: baseline_nacelle_psd, family: nacelle_psd}
+    - {candidate_id: distributed_moment_psd, family: moment_psd}
+    - {candidate_id: distributed_moment_bands, family: moment_bands}
+    - {candidate_id: moment_transmissibility_bands, family: transmissibility_bands}
+    - {candidate_id: fused_multiscale, family: fused}
+  selection_rule:
+    primary_regime: commissioning_reference
+    ordering:
+      - minimum_pre_onset_false_alarm_trajectory_fraction
+      - maximum_trajectory_detection_fraction
+      - maximum_final_zone_selection_fraction
+      - minimum_severity_mae
+      - minimum_feature_count
+  state_library:
+    zone_order: [lower_monopile, middle_monopile, upper_monopile]
+    loss_levels: [0.10, 0.20, 0.30]
+    training_loss_fraction: 0.30
+    meaningful_loss_fraction: 0.05
+    credible_level: 0.95
+  likelihood:
+    family: diagonal_student_t
+    degrees_of_freedom: 4.0
+    likelihood_power: 0.25
+    minimum_operational_feature_variance: 0.01
+    minimum_oracle_feature_variance: 0.0025
+  transition_model:
+    initial_healthy_probability: 1.0
+    healthy_persistence_probability: 0.98
+    healthy_entry_severity_weights: [0.60, 0.30, 0.10]
+    damage_progression_probability: 0.010
+    zone_switch_probability: 0.005
+  alarm:
+    probability_threshold: 0.80
+    persistence_windows: 2
+  expected_dimensions:
+    source_case_count: 12
+    source_channel_count: 8
+    frequency_count: 20
+    candidate_count: 5
+    cross_validation_fold_count: 2
+    validation_trajectory_count: 6
+    validation_windows_per_trajectory: 10
+    candidate_feature_counts:
+      baseline_nacelle_psd: 40
+      distributed_moment_psd: 120
+      distributed_moment_bands: 18
+      moment_transmissibility_bands: 12
+      fused_multiscale: 70
+  hypotheses:
+    maximum_selected_cv_false_alarm_trajectory_fraction: 0.05
+    minimum_selected_cv_detection_fraction: 0.67
+    minimum_selected_cv_zone_selection_fraction: 0.67
+    maximum_validation_operational_false_alarm_fraction: 0.05
+    maximum_validation_oracle_false_alarm_fraction: 0.05
+    minimum_validation_operational_detection_fraction: 0.67
+    minimum_validation_oracle_detection_fraction: 0.80
+    maximum_validation_operational_severity_mae: 0.12
+    maximum_validation_oracle_severity_mae: 0.08
+    minimum_validation_operational_zone_selection_fraction: 0.67
+    minimum_validation_oracle_zone_selection_fraction: 0.67
+    minimum_validation_operational_interval_coverage: 0.80
+    minimum_validation_oracle_interval_coverage: 0.80
+    minimum_operational_detection_improvement_over_stage23: 0.67
+    minimum_oracle_detection_improvement_over_stage23: 0.80

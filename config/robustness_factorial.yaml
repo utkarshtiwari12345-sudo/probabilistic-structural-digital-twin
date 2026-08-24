@@ -1,0 +1,62 @@
+study:
+  name: stage11_systematic_robustness
+  design: balanced_full_two_level_factorial
+  sensor_layout: three_spaced
+  inference_method: joint_commissioning
+  damaged_zone: lower
+
+# These five factors and their levels were frozen before the Stage 11 runs.
+factors:
+  measurement_noise_fraction: [0.02, 0.10]
+  final_loss_fraction: [0.06, 0.18]
+  independent_periodogram_averages: [4, 16]
+  top_sensor_dropout_probability: [0.0, 0.25]
+  model_mismatch: [matched, combined]
+
+mismatch_cases:
+  matched: {}
+  combined:
+    mass_scale: 1.03
+    damping_scale: 1.15
+    excitation_standard_deviation_scale: 1.08
+    excitation_correlation_time_scale: 1.15
+
+deterioration:
+  onset_day: 42.0
+  completion_day: 196.0
+
+dropout:
+  # One-based index within [DOF 1, DOF 3, DOF 6]. The channel is omitted from
+  # both the data and likelihood for each affected monitoring window.
+  sensor_one_based_within_layout: 3
+
+calibration:
+  healthy_replicates_per_observation_regime: 4
+  random_seed: 20261310
+
+evaluation:
+  replicates: 2
+  # Seed 20261320 is reserved for development. The frozen experiment below
+  # uses the untouched evaluation seed.
+  random_seed: 20261330
+
+healthy_holdout:
+  replicates: 1
+  random_seed: 20261340
+
+verification:
+  expected_factorial_cells: 32
+  expected_evaluation_histories: 64
+  maximum_optimizer_failure_fraction: 0.0
+
+# Scientific checks may be unsupported; they are reported rather than used to
+# suppress or retune an adverse result.
+hypotheses:
+  minimum_high_noise_rmse_increase: 0.0
+  maximum_high_data_rmse_effect: 0.0
+  minimum_high_severity_detection_improvement: 0.0
+  maximum_dropout_detection_reduction: 0.30
+  maximum_mismatch_rmse_increase: 0.03
+  minimum_challenging_corner_detection_fraction: 0.40
+  minimum_damaged_interval_coverage: 0.70
+  maximum_healthy_holdout_false_alarm_fraction: 0.10

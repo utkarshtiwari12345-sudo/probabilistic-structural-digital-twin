@@ -1,0 +1,16 @@
+category,check,observed,operator,criterion,supported
+scientific_hypothesis,H24_1_selected_development_false_alarm_control,0,<=,0.05,True
+scientific_hypothesis,H24_2_selected_development_detection,1,>=,0.67,True
+scientific_hypothesis,H24_3_selected_development_zone_selection,0.333333333333,>=,0.67,False
+scientific_hypothesis,H24_4_validation_operational_false_alarm_control,0.2,<=,0.05,False
+scientific_hypothesis,H24_5_validation_oracle_false_alarm_control,0,<=,0.05,True
+scientific_hypothesis,H24_6_validation_operational_detection,0,>=,0.67,False
+scientific_hypothesis,H24_7_validation_oracle_detection,1,>=,0.8,True
+scientific_hypothesis,H24_8_validation_operational_severity_mae,0.108270395656,<=,0.12,True
+scientific_hypothesis,H24_9_validation_oracle_severity_mae,0.0611640044209,<=,0.08,True
+scientific_hypothesis,H24_10_validation_operational_zone_selection,0.333333333333,>=,0.67,False
+scientific_hypothesis,H24_11_validation_oracle_zone_selection,1,>=,0.67,True
+scientific_hypothesis,H24_12_validation_operational_interval_coverage,0.933333333333,>=,0.8,True
+scientific_hypothesis,H24_13_validation_oracle_interval_coverage,1,>=,0.8,True
+scientific_hypothesis,H24_14_operational_detection_improvement_over_stage23,0,>=,0.67,False
+scientific_hypothesis,H24_15_oracle_detection_improvement_over_stage23,1,>=,0.8,True

@@ -1,0 +1,111 @@
+stage17:
+  research_question: >-
+    Can the Phase I twin ingest a pinned higher-fidelity OpenFAST offshore
+    baseline without silent provenance, channel, unit, or time-grid errors?
+  source:
+    repository: https://github.com/OpenFAST/r-test
+    release_tag: v5.0.0
+    release_commit: dd5feaa
+    case_name: 5MW_OC3Mnpl_DLL_WTurb_WavesIrr
+    case_description_contains: NREL 5.0 MW Baseline Wind Turbine with OC3 Monopile
+    input_path: data/raw/openfast/v5.0.0/5MW_OC3Mnpl_DLL_WTurb_WavesIrr/5MW_OC3Mnpl_DLL_WTurb_WavesIrr.fst
+    output_path: data/raw/openfast/v5.0.0/5MW_OC3Mnpl_DLL_WTurb_WavesIrr/5MW_OC3Mnpl_DLL_WTurb_WavesIrr.outb
+    input_git_blob: 0bded42e081d80b43bfc0cedfeb623e95a9b2940
+    output_git_blob: 38ed1991b7c2f92a0dbe293c5dcdb4848bf82788
+    input_sha256: 1d09363400d2c4d3fbb3387df72bda130b1560e1d7e353ad81ab62238a34222d
+    output_sha256: e5347f1ad1b86931eafa4a0bfc8a4383f66d3d31e342ef025c3c67f74776ec1e
+  solver:
+    repository: https://github.com/OpenFAST/openfast
+    release_tag: v5.0.0
+    executable_path: work/openfast-v5.0.0/OpenFAST_Double_Release.exe
+    executable_sha256: f947198a7dff813a9f221a22a29fd451d40a51a5e976d1847900f1c890d7ffc7
+  expected_input_settings:
+    TMax: 60.0
+    DT: 0.01
+    DT_Out: 0.05
+    TStart: 0.0
+    OutFileFmt: 4
+    CompElast: 1
+    CompInflow: 1
+    CompAero: 2
+    CompServo: 1
+    CompSeaSt: 1
+    CompHydro: 1
+    CompSub: 1
+  expected_output:
+    format_id: 3
+    sample_count: 1201
+    minimum_channel_count: 60
+    time_step_s: 0.05
+    duration_s: 60.0
+    maximum_relative_time_grid_error: 1.0e-10
+  bridge:
+    discard_before_s: 10.0
+    end_s: 60.0
+    window_duration_s: 10.0
+    minimum_complete_windows: 5
+    dominant_frequency_band_hz: [0.05, 2.00]
+    mappings:
+      - source_channel: TwHt1TPxi
+        source_unit: m
+        target_name: tower_top_fore_aft_displacement_m
+        target_unit: m
+        scale_to_target: 1.0
+      - source_channel: TwHt1TPyi
+        source_unit: m
+        target_name: tower_top_side_side_displacement_m
+        target_unit: m
+        scale_to_target: 1.0
+      - source_channel: PtfmSurge
+        source_unit: m
+        target_name: platform_surge_m
+        target_unit: m
+        scale_to_target: 1.0
+      - source_channel: PtfmSway
+        source_unit: m
+        target_name: platform_sway_m
+        target_unit: m
+        scale_to_target: 1.0
+      - source_channel: PtfmRoll
+        source_unit: deg
+        target_name: platform_roll_rad
+        target_unit: rad
+        scale_to_target: 0.017453292519943295
+      - source_channel: PtfmPitch
+        source_unit: deg
+        target_name: platform_pitch_rad
+        target_unit: rad
+        scale_to_target: 0.017453292519943295
+      - source_channel: Wave1Elev
+        source_unit: m
+        target_name: wave_elevation_m
+        target_unit: m
+        scale_to_target: 1.0
+      - source_channel: HydroFxi
+        source_unit: N
+        target_name: hydrodynamic_force_x_n
+        target_unit: N
+        scale_to_target: 1.0
+      - source_channel: HydroFyi
+        source_unit: N
+        target_name: hydrodynamic_force_y_n
+        target_unit: N
+        scale_to_target: 1.0
+      - source_channel: -ReactFXss
+        source_unit: N
+        target_name: substructure_reaction_force_x_n
+        target_unit: N
+        scale_to_target: 1.0
+      - source_channel: -ReactMYss
+        source_unit: N*m
+        target_name: substructure_reaction_moment_y_nm
+        target_unit: N*m
+        scale_to_target: 1.0
+      - source_channel: RotSpeed
+        source_unit: rpm
+        target_name: rotor_speed_rad_per_s
+        target_unit: rad/s
+        scale_to_target: 0.10471975511965977
+  deferred_direct_sensor_channels:
+    - {source_channel: NcIMUTAxs, unit: m/s^2, role: fore_aft_acceleration}
+    - {source_channel: NcIMUTAys, unit: m/s^2, role: side_side_acceleration}

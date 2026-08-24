@@ -1,0 +1,6 @@
+method,candidate_probability_threshold,healthy_false_alarm_fraction,passes_calibration,selected,coherent_residual_sequence_false_alarm_probability,maximum_calibration_sequence_residual,minimum_accumulation_windows,coherent_residual_threshold
+naive_laplace,0.8,0,True,True,0.05,1.37453875899,5,1.37453875899
+naive_laplace,0.9,0,True,False,0.05,1.37453875899,5,1.37453875899
+naive_laplace,0.95,0,True,False,0.05,1.37453875899,5,1.37453875899
+naive_laplace,0.975,0,True,False,0.05,1.37453875899,5,1.37453875899
+naive_laplace,0.99,0,True,False,0.05,1.37453875899,5,1.37453875899

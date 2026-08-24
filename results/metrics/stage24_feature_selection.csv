@@ -1,0 +1,6 @@
+selection_rank,selected,candidate_id,regime,feature_count,false_alarm_fraction,pre_onset_false_alarm_trajectory_fraction,raw_severe_alarm_fraction,valid_severe_detection_fraction,trajectory_detection_fraction,severity_mae,severity_interval_coverage,final_zone_selection_fraction,mean_final_true_zone_probability,mean_final_damage_probability,mean_true_state_log_likelihood_advantage_over_healthy
+1,True,distributed_moment_psd,commissioning_reference,120,0,0,0.566666666667,0.566666666667,1,0.153577272625,0.466666666667,0.333333333333,0.328430554453,0.993851766041,-0.696182168094
+2,False,moment_transmissibility_bands,commissioning_reference,12,0,0,0,0,0,0.277983302804,0.1,1,0.416322359821,0.201274958807,0.0878653013209
+3,False,fused_multiscale,commissioning_reference,70,0,0,0,0,0,0.251768321728,0.266666666667,0.5,0.374472007976,0.554242231051,-0.680931904231
+4,False,baseline_nacelle_psd,commissioning_reference,40,0,0,0,0,0,0.251431899372,0.4,0.333333333333,0.330012135837,0.523780234415,-0.334065691957
+5,False,distributed_moment_bands,commissioning_reference,18,0,0,0,0,0,0.281252100201,0,0.333333333333,0.335889450714,0.157099127769,-0.434731513595

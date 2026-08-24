@@ -1,0 +1,42 @@
+spectral_likelihood:
+  minimum_frequency_hz: 0.05
+  maximum_frequency_hz: 3.0
+  number_of_frequencies: 120
+  independent_periodogram_averages: 8
+  sensor_layout: three_spaced
+
+parameter_model:
+  names: [theta_lower, theta_middle, theta_upper]
+  lower_bounds: [0.65, 0.65, 0.65]
+  upper_bounds: [1.0, 1.0, 1.0]
+  prior_mean: [0.95, 0.95, 0.95]
+  prior_standard_deviation: [0.20, 0.20, 0.20]
+  credible_level: 0.95
+
+optimizer:
+  maximum_iterations: 300
+  derivative_relative_step: 1.0e-4
+  initial_points:
+    - [0.95, 0.95, 0.95]
+    - [0.80, 0.90, 0.98]
+    - [0.98, 0.85, 0.80]
+
+recovery_experiment:
+  noise_amplitude_fractions: [0.0, 0.05, 0.10]
+  monte_carlo_replicates: 12
+  random_seed: 20260910
+  cases:
+    healthy: [1.0, 1.0, 1.0]
+    uniform_loss: [0.90, 0.90, 0.90]
+    lower_dominant: [0.82, 0.95, 0.96]
+    middle_dominant: [0.95, 0.83, 0.96]
+    upper_dominant: [0.96, 0.95, 0.84]
+    mixed_loss: [0.88, 0.94, 0.80]
+
+verification:
+  ideal_maximum_absolute_error: 0.002
+  maximum_pooled_rmse: 0.025
+  maximum_pooled_absolute_bias: 0.012
+  minimum_interior_interval_coverage: 0.80
+  maximum_optimizer_failure_fraction: 0.0
+  minimum_uncertainty_contraction_ratio: 5.0

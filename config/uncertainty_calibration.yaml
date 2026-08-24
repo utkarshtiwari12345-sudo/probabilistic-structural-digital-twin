@@ -1,0 +1,53 @@
+study:
+  name: stage15_uncertainty_calibration
+  source_information_config: information_remedy.yaml
+  fixed_sensor_scheme: combined
+  fixed_estimator: joint_ukf
+
+interval_calibration:
+  nominal_coverage: 0.95
+  methods: [raw, scalar_inflation, zonewise_inflation, additive_model_error]
+  # Damaged calibration histories are disjoint from evaluation and holdout data.
+  replicates_per_case: 4
+  random_seed: 20261710
+
+evaluation:
+  replicates_per_case: 4
+  random_seed: 20261730
+
+healthy_holdout:
+  replicates: 6
+  random_seed: 20261750
+
+decision:
+  # Imported conceptually from the selected Stage 14 combined-sensor row and
+  # frozen here so Stage 15 outcomes cannot recalibrate it.
+  alarm_probability_threshold: 0.80
+
+uncertainty_recovery_gates:
+  minimum_evaluation_coverage: 0.85
+  maximum_evaluation_coverage: 0.99
+  minimum_coverage_lower_confidence_bound: 0.75
+  maximum_mean_interval_width: 0.08
+  maximum_interval_score_ratio_to_raw: 0.75
+  maximum_healthy_false_alarm_fraction: 0.05
+  minimum_stressed_detection_fraction: 0.75
+  maximum_predamage_false_alarm_fraction: 0.05
+  maximum_posterior_mean_shift: 1.0e-14
+
+verification:
+  expected_calibration_histories: 8
+  expected_evaluation_runs: 32
+  expected_healthy_holdout_runs: 24
+  expected_methods: 4
+  maximum_nonfinite_fraction: 0.0
+  minimum_adjusted_standard_deviation: 0.0
+
+hypotheses:
+  maximum_raw_evaluation_coverage: 0.30
+  minimum_best_evaluation_coverage: 0.85
+  minimum_best_interval_score_reduction_fraction: 0.25
+  minimum_operational_calibration_methods: 1
+  maximum_best_healthy_false_alarm_fraction: 0.05
+  minimum_best_stressed_detection_fraction: 0.75
+  maximum_mean_shift: 1.0e-14

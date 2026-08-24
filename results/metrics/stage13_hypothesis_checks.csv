@@ -1,0 +1,17 @@
+category,check,observed,operator,criterion,supported
+hypothesis,scaled_observability_rank,15,>=,14,True
+hypothesis,oracle_displacement_nrmse,1.91152441081,<=,0.4,False
+hypothesis,joint_displacement_nrmse,3.83528969651,<=,0.65,False
+hypothesis,joint_velocity_nrmse,0.511753046105,<=,0.75,True
+hypothesis,joint_stiffness_rmse,0.0809427467051,<=,0.06,False
+hypothesis,joint_to_oracle_displacement_nrmse_ratio,1.95586583141,<=,2,True
+hypothesis,matched_detection_fraction,1,>=,0.8,True
+hypothesis,stressed_detection_fraction,0.833333333333,>=,0.6,True
+hypothesis,matched_stiffness_coverage,0.0104166666667,>=,0.75,False
+hypothesis,predamage_false_alarm_fraction,0.222222222222,<=,0.05,False
+calibration,joint_ukf_healthy_alarm_calibration,0.666666666667,<=,0.05,False
+calibration,joint_enkf_healthy_alarm_calibration,0.444444444444,<=,0.05,False
+verification,evaluation_run_count,18,==,18,True
+verification,nonfinite_fraction,0,<=,0,True
+verification,minimum_scaled_covariance_eigenvalue,7.27808788667e-12,>=,0,True
+verification,monitoring_row_count,864,==,864,True

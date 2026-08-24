@@ -1,0 +1,19 @@
+* text=auto eol=lf
+
+*.py text eol=lf
+*.md text eol=lf
+*.toml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.csv text eol=lf
+*.txt text eol=lf
+*.cff text eol=lf
+
+*.bts binary
+*.dll binary
+*.outb binary
+*.png binary
+
+# Preserve checksum-pinned upstream OpenFAST/r-test text exactly, including
+# whitespace that is significant to provenance but not to project style.
+data/raw/openfast/** -whitespace

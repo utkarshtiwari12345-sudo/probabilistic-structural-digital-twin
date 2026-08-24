@@ -1,0 +1,74 @@
+data_model:
+  stage6_tracking_config: sequential_tracking.yaml
+  inference_process_model: responsive
+
+calibration:
+  healthy_replicates: 20
+  random_seed: 20261030
+  coherent_residual_sequence_false_alarm_probability: 0.05
+  minimum_accumulation_windows: 5
+
+evaluation:
+  replicates: 3
+  # Seeds 20261040 and 20261050 were development/diagnostic-calibration pilots.
+  # The sequence-calibrated frozen design uses this untouched holdout seed.
+  random_seed: 20261060
+
+cases:
+  matched_healthy:
+    truth_scenario: healthy
+
+  mass_plus_5:
+    truth_scenario: healthy
+    mass_scale: 1.05
+
+  damping_plus_30:
+    truth_scenario: healthy
+    damping_scale: 1.30
+
+  excitation_plus_15:
+    truth_scenario: healthy
+    excitation_standard_deviation_scale: 1.15
+
+  correlation_time_plus_30:
+    truth_scenario: healthy
+    excitation_correlation_time_scale: 1.30
+
+  top_sensor_gain_plus_5:
+    truth_scenario: healthy
+    sensor_gain_scales: [1.00, 1.00, 1.05]
+
+  combined_healthy:
+    truth_scenario: healthy
+    mass_scale: 1.03
+    damping_scale: 1.15
+    excitation_standard_deviation_scale: 1.08
+    excitation_correlation_time_scale: 1.15
+    sensor_gain_scales: [1.02, 1.00, 1.03]
+
+  gradual_lower_mass_plus_5:
+    truth_scenario: gradual_lower
+    mass_scale: 1.05
+
+  abrupt_middle_damping_plus_30:
+    truth_scenario: abrupt_middle
+    damping_scale: 1.30
+
+  multi_zone_combined:
+    truth_scenario: multi_zone
+    mass_scale: 1.03
+    damping_scale: 1.15
+    excitation_standard_deviation_scale: 1.08
+    excitation_correlation_time_scale: 1.15
+    sensor_gain_scales: [1.02, 1.00, 1.03]
+
+verification:
+  maximum_matched_false_alarm_fraction: 0.05
+  maximum_matched_residual_exceedance_fraction: 0.10
+  maximum_optimizer_failure_fraction: 0.0
+
+hypotheses:
+  minimum_any_healthy_discrepancy_false_alarm_fraction: 0.50
+  minimum_mass_apparent_loss_fraction: 0.03
+  minimum_any_discrepancy_residual_exceedance_fraction: 0.50
+  minimum_damage_case_detection_fraction: 0.80

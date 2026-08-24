@@ -1,0 +1,14 @@
+category,check,observed,operator,criterion,supported
+hypothesis,raw_evaluation_coverage,0.169270833333,<=,0.3,True
+hypothesis,best_corrected_evaluation_coverage,0.942708333333,>=,0.85,True
+hypothesis,best_interval_score_reduction_fraction,0.853923142091,>=,0.25,True
+hypothesis,operational_calibration_method_count,3,>=,1,True
+hypothesis,best_healthy_false_alarm_fraction,0,<=,0.05,True
+hypothesis,best_stressed_detection_fraction,1,>=,0.75,True
+hypothesis,maximum_posterior_mean_shift,0,<=,1e-14,True
+verification,calibration_history_count,8,==,8,True
+verification,evaluation_run_count,32,==,32,True
+verification,healthy_holdout_run_count,24,==,24,True
+verification,method_count,4,==,4,True
+verification,nonfinite_fraction,0,<=,0,True
+verification,minimum_adjusted_standard_deviation,2.22118517011e-05,>,0,True

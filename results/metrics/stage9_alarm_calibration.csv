@@ -1,0 +1,16 @@
+method,candidate_probability_threshold,healthy_false_alarm_fraction,passes_calibration,selected
+nominal,0.8,0,True,True
+nominal,0.9,0,True,False
+nominal,0.95,0,True,False
+nominal,0.975,0,True,False
+nominal,0.99,0,True,False
+joint_commissioning,0.8,0,True,True
+joint_commissioning,0.9,0,True,False
+joint_commissioning,0.95,0,True,False
+joint_commissioning,0.975,0,True,False
+joint_commissioning,0.99,0,True,False
+joint_weak,0.8,0.566666666667,False,False
+joint_weak,0.9,0.0333333333333,True,True
+joint_weak,0.95,0,True,False
+joint_weak,0.975,0,True,False
+joint_weak,0.99,0,True,False
