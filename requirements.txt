@@ -2,7 +2,7 @@
 # python -m pip install -e ".[dev]"
 matplotlib>=3.9,<4
 numpy>=2.0,<3
-pandas>=2.2,<3
+pandas>=2.2,<4
 PyYAML>=6.0,<7
 scipy>=1.14,<2
 tqdm>=4.66,<5
