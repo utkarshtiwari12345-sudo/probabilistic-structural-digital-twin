@@ -15,7 +15,7 @@ privacy,forbidden_candidate_paths,0,==,0,True
 privacy,processed_data_excluded,0,==,0,True
 size,maximum_candidate_file_size_bytes,8349359,<=,104857600,True
 size,files_above_warning_size,0,==,0,True
-size,candidate_total_size_bytes,19546113,<=,1073741824,True
+size,candidate_total_size_bytes,19546220,<=,1073741824,True
 evidence,research_figure_count,26,>=,26,True
 evidence,compact_evidence_table_count,79,>=,50,True
 provenance,openfast_reference_provenance_included,True,==,True,True

@@ -53,7 +53,7 @@ dev = [
 where = ["src"]
 
 [tool.pytest.ini_options]
-addopts = "-p no:cacheprovider -ra --strict-config --strict-markers --basetemp=work/pytest"
+addopts = "-p no:cacheprovider -ra --strict-config --strict-markers --basetemp=.pytest_tmp"
 testpaths = ["tests"]
 
 [tool.ruff]

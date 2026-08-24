@@ -4,8 +4,8 @@ version,0.1.0
 publication_state,github_release_v0.1.0
 repository_url,https://github.com/utkarshtiwari12345-sudo/probabilistic-structural-digital-twin
 candidate_file_count,281
-candidate_total_bytes,19546113
-candidate_total_mib,18.640625953674316
+candidate_total_bytes,19546220
+candidate_total_mib,18.640727996826172
 largest_candidate_path,data/raw/openfast/v5.0.0/stage18_healthy_deck/5MW_Baseline/Wind/90m_12mps_twr.bts
 largest_candidate_size_bytes,8349359
 figure_count,26
