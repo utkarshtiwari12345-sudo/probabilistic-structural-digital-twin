@@ -20,5 +20,5 @@ ruff==0.16.4
 scipy==1.18.1
 setuptools==84.0.0
 six==1.17.0
-tqdm==4.70.0
+tqdm==4.70.1
 tzdata==2026.3
